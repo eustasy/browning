@@ -1,12 +1,11 @@
 <?php
 
-	if(isset($_POST['dear']) || isset($_POST['subject']) || isset($_POST['message']) || isset($_POST['regards']) || isset($_POST['replyto'])) { // Something is jammed
+	if(isset($_POST['dear']) || isset($_POST['subject']) || isset($_POST['message']) || isset($_POST['regards'])) { // Something is jammed
 		echo '<div class="warning error">';
 		if(!isset($_POST['dear'])) echo 'dear';
 		if(!isset($_POST['subject'])) echo 'subject';
 		if(!isset($_POST['message'])) echo 'message';
 		if(!isset($_POST['regards'])) echo 'regards';
-		if(!isset($_POST['replyto'])) echo 'replyto';
 		echo '</div>';
 	}
 
@@ -36,12 +35,6 @@
 								<div class="col span_1_of_12"><br></div>
 								<div class="col span_2_of_12"><label for="regards"><h3>Regards</h3></label></div>
 								<div class="col span_6_of_12"><input type="text" name="regards" placeholder="Hurricane 3-40U" required /></div>
-								<div class="col span_3_of_12"><br></div>
-							</div>
-							<div class="section group">
-								<div class="col span_1_of_12"><br></div>
-								<div class="col span_2_of_12"><label for="replyto"><h3>Reply To</h3></label></div>
-								<div class="col span_6_of_12"><input type="email" name="replyto" placeholder="hurricane@hanger3.com" required /></div>
 								<div class="col span_3_of_12"><br></div>
 							</div>
 							<div class="section group">

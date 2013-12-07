@@ -2,7 +2,7 @@
 
 
 
-function Browning_Send($dear, $subject, $message, $regards, $replyto, $Recaptcha){
+function Browning_Send($dear, $subject, $message, $regards, $replyto, $Recaptcha=false, $Debug=false){
 
 
 
@@ -31,18 +31,18 @@ function Browning_Send($dear, $subject, $message, $regards, $replyto, $Recaptcha
 
 
 
-	$Browning_Dear = htmlspecialchars($dear, ENT_QUOTES, 'UTF-8');
-	$Browning_Subject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
-	$Browning_Message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+	$Browning_Dear = $dear;
+	$Browning_Subject = $subject;
+	$Browning_Message = $message;
 
-	if(isset($regards)) {
-		$Browning_Regards = htmlspecialchars($regards, ENT_QUOTES, 'UTF-8');
+	if(isset($regards) && !empty($regards)) {
+		$Browning_Regards = $regards;
 	} else {
 		$Browning_Regards = $Browning_Global_Regards;
 	}
 
-	if(isset($replyto)) {
-		$Browning_ReplyTo = htmlspecialchars($replyto, ENT_QUOTES, 'UTF-8');
+	if(isset($replyto) && !empty($replyto)) {
+		$Browning_ReplyTo = $replyto;
 	} else {
 		$Browning_ReplyTo = $Browning_Global_ReplyTo;
 	}
@@ -71,8 +71,10 @@ function Browning_Send($dear, $subject, $message, $regards, $replyto, $Recaptcha
 	if(curl_errno($Browning_Curl)) return curl_errno($Browning_Curl).' Error: '.curl_error($Browning_Curl);
 	if(!$Browning_Response) return 'Unable to send email. Check your configuration and keys.';
 
-	var_dump($Browning_Response);
-	var_dump($Browning_Info);
+	if($Debug) {
+		var_dump($Browning_Response);
+		var_dump($Browning_Info);
+	}
 
 	curl_close($Browning_Curl);
 
