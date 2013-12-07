@@ -1,4 +1,4 @@
-browning-a-mailgun-script
+Browning: A Lightweight Mailgun Script using Curl
 =========================
 
-Browning: A Lightwiehgt Mailgun Script using Curl
+Browning: A Lightweight Mailgun Script using Curl
