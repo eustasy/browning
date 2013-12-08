@@ -1,53 +1,37 @@
 <?php
 
+function Browning_Send($Dear, $Subject, $Message, $Regards=false, $ReplyTo=false, $Recaptcha=false, $Debug=false){
 
-
-function Browning_Send($dear, $subject, $message, $regards, $replyto, $Recaptcha=false, $Debug=false){
-
-
-
-	if(!isset($dear)) return 'No email address defined for recipient.';
-	if(!isset($subject)) return 'No subject for message.';
-	if(!isset($message)) return 'You must enter a message, to send a message.';
-
-
+	if(!isset($Dear)) return 'No email address defined for recipient.';
+	if(!isset($Subject)) return 'No subject for message.';
+	if(!isset($Message)) return 'You must enter a message, to send a message.';
 
 	require 'Browning_Config.php';
 
-
-
-	if($Recaptcha==true) {
-		require('recaptcha/recaptchalib.php');
-
+	if($Recaptcha) {
+		require('recaptchalib.php');
 		$Recaptcha_Response = recaptcha_check_answer(
 			$Recaptcha_Secret,
 			$_SERVER['REMOTE_ADDR'],
 			$_POST['recaptcha_challenge_field'],
 			$_POST['recaptcha_response_field']
 		);
-
 		if (!$Recaptcha_Response->is_valid) return 'The reCAPTCHA wasn\'t entered correctly. Go back and try it again. (reCAPTCHA said: '.$Recaptcha_Response->error.')';
 	}
 
-
-
-	$Browning_Dear = $dear;
-	$Browning_Subject = $subject;
-	$Browning_Message = $message;
-
-	if(isset($regards) && !empty($regards)) {
-		$Browning_Regards = $regards;
+	$Browning_Dear = $Dear;
+	$Browning_Subject = $Subject;
+	$Browning_Message = $Message;
+	if($Regards && !empty($Regards)) {
+		$Browning_Regards = $Regards;
 	} else {
 		$Browning_Regards = $Browning_Global_Regards;
 	}
-
-	if(isset($replyto) && !empty($replyto)) {
-		$Browning_ReplyTo = $replyto;
+	if($ReplyTo && !empty($ReplyTo)) {
+		$Browning_ReplyTo = $ReplyTo;
 	} else {
 		$Browning_ReplyTo = $Browning_Global_ReplyTo;
 	}
-
-
 
 	$Browning_Curl = curl_init();
 
@@ -68,13 +52,13 @@ function Browning_Send($dear, $subject, $message, $regards, $replyto, $Recaptcha
 	$Browning_Response = curl_exec($Browning_Curl);
 	$Browning_Info = curl_getinfo($Browning_Curl);
 
-	if(curl_errno($Browning_Curl)) return curl_errno($Browning_Curl).' Error: '.curl_error($Browning_Curl);
-	if(!$Browning_Response) return 'Unable to send email. Check your configuration and keys.';
-
 	if($Debug) {
 		var_dump($Browning_Response);
 		var_dump($Browning_Info);
 	}
+
+	if(curl_errno($Browning_Curl)) return curl_errno($Browning_Curl).' Error: '.curl_error($Browning_Curl);
+	if(!$Browning_Response) return 'Unable to send email. Check your configuration and keys.';
 
 	curl_close($Browning_Curl);
 

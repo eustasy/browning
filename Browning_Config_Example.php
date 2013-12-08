@@ -24,6 +24,7 @@
 
 	// Reply-to address
 	// Please don't use noreply.
+	// Should match the domain in your API URL.
 	// $Browning_Global_ReplyTo = 'support@example.com';
 	$Browning_Global_ReplyTo = 'support@example.com';
 
