@@ -1,6 +1,7 @@
 <?php
 
-	// Mailgun API
+	// Browning: A Mailgun Script
+	// https://github.com/eustasy/browning-a-mailgun-script
 
 	// Sign up at https://mailgun.com/signup
 	// First 10,00 mails a month free.
