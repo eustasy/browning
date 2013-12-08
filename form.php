@@ -41,7 +41,7 @@
 								<div class="col span_3_of_12"><br></div>
 								<div class="col span_6_of_12">
 								<?php
-									require('recaptcha/recaptchalib.php');
+									require('recaptchalib.php');
 									require('Browning_Config.php');
 									echo recaptcha_get_html($Recaptcha_Public);
 								?>
