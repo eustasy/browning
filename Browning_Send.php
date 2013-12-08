@@ -8,8 +8,16 @@ function Browning_Send($Dear, $Subject, $Message, $Regards=false, $ReplyTo=false
 
 	require 'Browning_Config.php';
 
+<<<<<<< HEAD
 	if($Recaptcha) {
 		require('recaptchalib.php');
+=======
+
+
+	if($Recaptcha) {
+		require('recaptcha/recaptchalib.php');
+
+>>>>>>> 48991e0a6b5a00a964f7591012a82f2ae66c6f80
 		$Recaptcha_Response = recaptcha_check_answer(
 			$Recaptcha_Secret,
 			$_SERVER['REMOTE_ADDR'],
