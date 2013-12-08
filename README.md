@@ -1,5 +1,5 @@
 Browning: A Mailgun Script
-=========================
+=======================
 
 Browning is a tiny PHP function to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.
 
