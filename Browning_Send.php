@@ -16,7 +16,7 @@ function Browning_Send($dear, $subject, $message, $regards, $replyto, $Recaptcha
 
 
 
-	if($Recaptcha==true) {
+	if($Recaptcha) {
 		require('recaptcha/recaptchalib.php');
 
 		$Recaptcha_Response = recaptcha_check_answer(
