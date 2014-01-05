@@ -8,14 +8,13 @@
 
 		require 'Browning_Send.php';
 		// Make sure you've loaded the script and the config before running this function
-		$Mail =  Browning_Send($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '', true);
+		$Mail =  Browning_Send($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '');
 		/* Browning_Send(
 			'to email',
 			'subject',
 			'message',
 			'from name',
 			'reply-to email',
-			recaptcha [boolean: true, false; default: false;],
 			debug [boolean: true, false; default: false;]
 		); */
 		require 'header.php';
