@@ -30,7 +30,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-function Browning_Send($Dear, $Subject, $Message, $Regards=false, $ReplyTo=false, $Recaptcha=false, $Debug=false){
+function Browning_Send($Dear, $Subject, $Message, $Regards=false, $ReplyTo=false, $Debug=false){
 
 	if(!isset($Dear)) return 'No email address defined for recipient.';
 	if(!isset($Subject)) return 'No subject for message.';
