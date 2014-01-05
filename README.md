@@ -22,7 +22,6 @@ if(isset($_POST['dear'])&&isset($_POST['subject'])&&isset($_POST['message'])) { 
 		'message',
 		'from name',
 		'reply-to email',
-		recaptcha [boolean: true, false; default: false;],
 		debug [boolean: true, false; default: false;]
 	); */
 
