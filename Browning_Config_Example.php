@@ -28,8 +28,3 @@
 	// Should match the domain in your API URL.
 	// $Browning_Global_ReplyTo = 'support@example.com';
 	$Browning_Global_ReplyTo = 'support@example.com';
-
-	// Get your Public and Private Recaptcha Keys (optional)
-	// https://www.google.com/recaptcha/admin/list
-	$Recaptcha_Public = '01234567890abcdefghijklmnopqrstuvwxyz012';
-	$Recaptcha_Secret = '01234567890abcdefghijklmnopqrstuvwxyz012';
