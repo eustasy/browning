@@ -10,7 +10,8 @@ If possible, make sure you have the following packages installed before using th
 ###Usage
 To use, do somethings like this.
 ```
-if(isset($_POST['dear'])&&isset($_POST['subject'])&&isset($_POST['message'])) { // If you're ready to fire
+// If you're ready to fire
+if( isset($_POST['dear']) && isset($_POST['subject']) && isset($_POST['message'])) {
 
 	require 'Browning_Send.php';
 
@@ -26,7 +27,6 @@ if(isset($_POST['dear'])&&isset($_POST['subject'])&&isset($_POST['message'])) { 
 	); */
 
 	if($Mail===true) echo '<h2>Success!</h2>';
-
 	else echo '<h2>Error: '.$Mail.'</h2>';
 
 } else {
