@@ -1,0 +1,26 @@
+{
+	"name": "eustasy/browing-a-mailgun-script",
+	"description": "Browning: A Lightweight Mailgun Script using Curl.",
+	"homepage": "http://labs.eustasy.org/browning-a-mailgun-script/",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Lewis Goddard",
+			"email": "lewisgoddard@eustasy.org",
+			"homepage": "http://lewisgoddard.eustasy.org",
+			"role": "Developer"
+		}
+	],
+	"keywords": [
+		"mail",
+		"email",
+		"mailgun",
+		"wrapper",
+		"curl"
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"lib-curl": "*"
+	}
+}
