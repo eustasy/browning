@@ -21,10 +21,10 @@ $Browning_Key = 'key-123456-abcdefg-789012-abc-34567';
 
 // From for Mail
 // $Browning_Gloabl_Regards = 'Example Support';
-$Browning_Global_Regards = 'Example Support';
+$Browning_Default_Regards = 'Example Support';
 
 // Reply-to address
 // Please don't use noreply.
 // Should match the domain in your API URL.
 // $Browning_Global_ReplyTo = 'support@example.com';
-$Browning_Global_ReplyTo = 'support@example.com';
+$Browning_Default_ReplyTo = 'support@example.com';

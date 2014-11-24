@@ -51,16 +51,16 @@ function Browning_Send($Dear, $Subject, $Message, $Regards = false, $ReplyTo = f
 		$Browning_Subject = $Subject;
 		$Browning_Message = $Message;
 
-		if ( $Regards && !empty($Regards) ) {
+		if ( $Regards ) {
 			$Browning_Regards = $Regards;
 		} else {
-			$Browning_Regards = $Browning_Global_Regards;
+			$Browning_Regards = $Browning_Default_Regards;
 		}
 
-		if ( $ReplyTo && !empty($ReplyTo) ) {
+		if ( $ReplyTo ) {
 			$Browning_ReplyTo = $ReplyTo;
 		} else {
-			$Browning_ReplyTo = $Browning_Global_ReplyTo;
+			$Browning_ReplyTo = $Browning_Default_ReplyTo;
 		}
 
 		$Browning_Curl = curl_init();
