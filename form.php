@@ -1,11 +1,24 @@
 <?php
 
-	if(isset($_POST['dear']) || isset($_POST['subject']) || isset($_POST['message']) || isset($_POST['regards'])) { // Something is jammed
+	if (
+		isset($_POST['dear']) ||
+		isset($_POST['subject']) ||
+		isset($_POST['message']) ||
+		isset($_POST['regards'])
+	) { // Something is jammed
 		echo '<div class="warning error">';
-		if(!isset($_POST['dear'])) echo 'dear';
-		if(!isset($_POST['subject'])) echo 'subject';
-		if(!isset($_POST['message'])) echo 'message';
-		if(!isset($_POST['regards'])) echo 'regards';
+		if ( !isset($_POST['dear']) ) {
+			echo 'dear';
+		}
+		if ( !isset($_POST['subject']) ) {
+			echo 'subject';
+		}
+		if ( !isset($_POST['message']) ) {
+			echo 'message';
+		}
+		if ( !isset($_POST['regards']) ) {
+			echo 'regards';
+		}
 		echo '</div>';
 	}
 
@@ -42,7 +55,7 @@
 								<div class="col span_6_of_12">
 								<?php
 									require 'Recaptcha_Config.php';
-									if($Recaptcha) {
+									if ( $Recaptcha ) {
 										require 'recaptchalib.php' ;
 										echo recaptcha_get_html($Recaptcha_Public);
 									}
