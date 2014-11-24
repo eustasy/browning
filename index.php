@@ -8,12 +8,18 @@
 		isset($_POST['dear']) &&
 		isset($_POST['subject']) &&
 		isset($_POST['message'])
-	) { // If you're ready to fire
+	) {
 
+		// TODO Check exists / is readable.
 		require 'Recaptcha_Config.php';
 		if ( $Recaptcha ) {
 			require 'recaptchalib.php';
-			$Recaptcha_Response = recaptcha_check_answer ($Recaptcha_Secret, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+			$Recaptcha_Response = recaptcha_check_answer (
+				$Recaptcha_Secret,
+				$_SERVER['REMOTE_ADDR'],
+				$_POST['recaptcha_challenge_field'],
+				$_POST['recaptcha_response_field']
+			);
 			if ( !$Recaptcha_Response->is_valid ) {
 				require 'header.php';
 				echo '<h3>The reCAPTCHA wasn\'t entered correctly. Go back and try it again.</h3>';

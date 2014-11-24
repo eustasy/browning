@@ -5,7 +5,7 @@
 		isset($_POST['subject']) ||
 		isset($_POST['message']) ||
 		isset($_POST['regards'])
-	) { // Something is jammed
+	) {
 		echo '<div class="warning error">';
 		if ( !isset($_POST['dear']) ) {
 			echo 'dear';
@@ -28,20 +28,32 @@
 							<br>
 							<div class="section group">
 								<div class="col span_1_of_12"><br></div>
-								<div class="col span_2_of_12"><label for="dear"><h3>Dear</h3></label></div>
-								<div class="col span_6_of_12"><input type="email" name="dear" placeholder="spitfire@hanger6.com" required /></div>
+								<div class="col span_2_of_12">
+									<label for="dear"><h3>Dear</h3></label>
+								</div>
+								<div class="col span_6_of_12">
+									<input type="email" name="dear" placeholder="spitfire@hanger6.com" required />
+								</div>
 								<div class="col span_3_of_12"><br></div>
 							</div>
 							<div class="section group">
 								<div class="col span_1_of_12"><br></div>
-								<div class="col span_2_of_12"><label for="subject"><h3>Subject</h3></label></div>
-								<div class="col span_6_of_12"><input type="text" name="subject" placeholder="You're recent failure to deliver." required /></div>
+								<div class="col span_2_of_12">
+									<label for="subject"><h3>Subject</h3></label>
+								</div>
+								<div class="col span_6_of_12">
+									<input type="text" name="subject" placeholder="You're recent failure to deliver." required />
+								</div>
 								<div class="col span_3_of_12"><br></div>
 							</div>
 							<div class="section group">
 								<div class="col span_1_of_12"><br></div>
-								<div class="col span_2_of_12"><label for="message"><h3>Message</h3></label></div>
-								<div class="col span_6_of_12"><textarea rows="5" name="message" placeholder="Perhaps if you were to fly a little faster, your outside guns wouldn't keep freezing up, what what." required></textarea></div>
+								<div class="col span_2_of_12">
+									<label for="message"><h3>Message</h3></label>
+								</div>
+								<div class="col span_6_of_12">
+									<textarea rows="5" name="message" placeholder="Perhaps if you were to fly a little faster, your outside guns wouldn't keep freezing up, what what." required></textarea>
+								</div>
 								<div class="col span_3_of_12"><br></div>
 							</div>
 							<div class="section group">
@@ -54,6 +66,7 @@
 								<div class="col span_3_of_12"><br></div>
 								<div class="col span_6_of_12">
 								<?php
+									// TODO Check exists / is readable.
 									require 'Recaptcha_Config.php';
 									if ( $Recaptcha ) {
 										require 'recaptchalib.php' ;

@@ -6,7 +6,8 @@ Browning: A Mailgun Script (v0.23)
 https://github.com/eustasy/browning-a-mailgun-script
 ==========================
 
-Browning is a tiny PHP function to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.
+Browning is a tiny PHP function to send emails with Mailgun,
+that uses CURL instead of Mailgun's (slightly porky) library.
 
 Copyright (c) 2014 eustasy under the MIT License
 
@@ -32,69 +33,71 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 function Browning_Send($Dear, $Subject, $Message, $Regards = false, $ReplyTo = false, $Debug = false){
 
-	if ( !isset($Dear) ) {
+	if ( empty($Dear) ) {
 		return 'No email address defined for recipient.';
-	}
 
-	if ( !isset($Subject) ) {
+	} else if ( empty($Subject) ) {
 		return 'No subject for message.';
-	}
 
-	if ( !isset($Message) ) {
+	} else if ( empty($Message) ) {
 		return 'You must enter a message, to send a message.';
-	}
 
-	// TODO Check file exists/is readable.
-	require 'Browning_Config.php';
-
-	$Browning_Dear = $Dear;
-	$Browning_Subject = $Subject;
-	$Browning_Message = $Message;
-	if ( $Regards && !empty($Regards) ) {
-		$Browning_Regards = $Regards;
 	} else {
-		$Browning_Regards = $Browning_Global_Regards;
+
+		// TODO Check file exists/is readable.
+		require 'Browning_Config.php';
+
+		$Browning_Dear = $Dear;
+		$Browning_Subject = $Subject;
+		$Browning_Message = $Message;
+
+		if ( $Regards && !empty($Regards) ) {
+			$Browning_Regards = $Regards;
+		} else {
+			$Browning_Regards = $Browning_Global_Regards;
+		}
+
+		if ( $ReplyTo && !empty($ReplyTo) ) {
+			$Browning_ReplyTo = $ReplyTo;
+		} else {
+			$Browning_ReplyTo = $Browning_Global_ReplyTo;
+		}
+
+		$Browning_Curl = curl_init();
+
+		curl_setopt($Browning_Curl, CURLOPT_URL, $Browning_URL);
+		curl_setopt($Browning_Curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($Browning_Curl, CURLOPT_USERPWD, 'api:'.$Browning_Key);
+		curl_setopt($Browning_Curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt_array($Browning_Curl, array(
+			CURLOPT_POST => 1,
+			CURLOPT_POSTFIELDS => array(
+				'from' => $Browning_Regards.' <'.$Browning_ReplyTo.'>',
+				'to' => $Browning_Dear,
+				'subject' => $Browning_Subject,
+				'text' => $Browning_Message
+			)
+		));
+
+		$Browning_Response = curl_exec($Browning_Curl);
+		$Browning_Info = curl_getinfo($Browning_Curl);
+
+		if ( $Debug ) {
+			var_dump($Browning_Response);
+			var_dump($Browning_Info);
+		}
+
+		if ( curl_errno($Browning_Curl) ) {
+			return curl_errno($Browning_Curl).' Error: '.curl_error($Browning_Curl);
+
+		} else if ( !$Browning_Response ) {
+			return 'Unable to send email. Check your configuration and keys.';
+
+		} else {
+			curl_close($Browning_Curl);
+			return true;
+		}
+
 	}
-	if ( $ReplyTo && !empty($ReplyTo) ) {
-		$Browning_ReplyTo = $ReplyTo;
-	} else {
-		$Browning_ReplyTo = $Browning_Global_ReplyTo;
-	}
-
-	$Browning_Curl = curl_init();
-
-	curl_setopt($Browning_Curl, CURLOPT_URL, $Browning_URL);
-	curl_setopt($Browning_Curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($Browning_Curl, CURLOPT_USERPWD, 'api:'.$Browning_Key);
-	curl_setopt($Browning_Curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-	curl_setopt_array($Browning_Curl, array(
-		CURLOPT_POST => 1,
-		CURLOPT_POSTFIELDS => array(
-			'from' => $Browning_Regards.' <'.$Browning_ReplyTo.'>',
-			'to' => $Browning_Dear,
-			'subject' => $Browning_Subject,
-			'text' => $Browning_Message
-		)
-	));
-
-	$Browning_Response = curl_exec($Browning_Curl);
-	$Browning_Info = curl_getinfo($Browning_Curl);
-
-	if ( $Debug ) {
-		var_dump($Browning_Response);
-		var_dump($Browning_Info);
-	}
-
-	if ( curl_errno($Browning_Curl) ) {
-		return curl_errno($Browning_Curl).' Error: '.curl_error($Browning_Curl);
-	}
-
-	if ( !$Browning_Response ) {
-		return 'Unable to send email. Check your configuration and keys.';
-	}
-
-	curl_close($Browning_Curl);
-
-	return true;
 
 }
