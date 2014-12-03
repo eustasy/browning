@@ -13,9 +13,10 @@ To use, do somethings like this.
 // If you're ready to fire
 if ( isset($_POST['dear']) && isset($_POST['subject']) && isset($_POST['message']) ) {
 
-	require 'Browning_Send.php';
+	require 'config.browning.php';
+	require 'function.browning.php';
 
-	$Mail =  Browning_Send($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '');
+	$Mail =  Browning($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '');
 
 	/* Browning_Send(
 		'to email',
@@ -26,10 +27,11 @@ if ( isset($_POST['dear']) && isset($_POST['subject']) && isset($_POST['message'
 		debug [boolean: true, false; default: false;]
 	); */
 
-	if ( $Mail === true ) {
+	if ( $Mail['Success'] ) {
 		echo '<h2>Success!</h2>';
 	} else {
-		echo '<h2>Error: '.$Mail.'</h2>';
+		echo '<h2>Failure!</h2>';
+		var_dump($Mail);
 	}
 
 } else {

@@ -1,4 +1,0 @@
-<?php
-	$Recaptcha = false;
-	$Recaptcha_Public = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ_123';
-	$Recaptcha_Secret = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ_123';

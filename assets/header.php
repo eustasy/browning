@@ -13,7 +13,7 @@
 		<link rel="shortcut icon" href="//eustasy.org/favicon.ico">
 		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic">
 		<link rel="stylesheet" href="//labs.eustasy.org/style.css">
-		<link rel="stylesheet" href="browning.css">
+		<link rel="stylesheet" href="assets/browning.css">
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

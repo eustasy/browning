@@ -66,11 +66,10 @@
 								<div class="col span_3_of_12"><br></div>
 								<div class="col span_6_of_12">
 								<?php
-									// TODO Check exists / is readable.
-									require 'Recaptcha_Config.php';
 									if ( $Recaptcha ) {
-										require 'recaptchalib.php' ;
-										echo recaptcha_get_html($Recaptcha_Public);
+										// TODO Check exists / is readable.
+										require_once $Recaptcha['Location'];
+										echo recaptcha_get_html($Recaptcha['Public']);
 									}
 								?>
 								</div>
