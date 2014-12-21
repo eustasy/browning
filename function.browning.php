@@ -89,7 +89,10 @@ function Browning($Dear, $Subject, $Message, $Regards = false, $ReplyTo = false,
 		if ( curl_errno($Browning['Curl']) ) {
 			return curl_errno($Browning['Curl']).' Error: '.curl_error($Browning['Curl']);
 
-		} else if ( !$Browning['Response'] ) {
+		} else if (
+			!$Browning['Response']
+			$Browning_Response == 'Forbidden' ||
+		) {
 			return array('Error' => 'Unable to send email. Check your configuration and keys.', 'Success' => false);
 
 		} else {
