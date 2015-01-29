@@ -21,6 +21,7 @@
 	) {
 
 		if (
+			isset($Recpatch) &&
 			$Recaptcha &&
 			is_readable($Recaptcha['Location'])
 		) {
@@ -41,7 +42,7 @@
 		}
 
 		// If Recaptcha is turned off OR it was entered correctly.
-		if ( !$Recaptcha || $Recaptcha['Response']->is_valid ) {
+		if ( !isset($Recpatch) || !$Recaptcha || $Recaptcha['Response']->is_valid ) {
 			require 'function.browning.php';
 			// Make sure you've loaded the script and the config before running this function
 			$Mail = Browning($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '');
