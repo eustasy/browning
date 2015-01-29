@@ -33,7 +33,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 function Browning($Dear, $Subject, $Message, $Regards = false, $ReplyTo = false, $Debug = false) {
 
-	global $Browning, $Recaptcha;
+	global $Browning;
 
 	if ( empty($Dear) ) {
 		return array('Error' => 'No email address defined for recipient.', 'Success' => false);
