@@ -27,22 +27,3 @@ $Browning['Default']['Regards'] = 'Example Support';
 // Should match the domain in your API URL.
 // $Browning['Default']['ReplyTo'] = 'support@example.com';
 $Browning['Default']['ReplyTo'] = 'support@example.com';
-
-////	Recaptcha
-// Sign up at https://www.google.com/recaptcha/admin
-
-// Enable
-
-// You shouldn't need to change this unless you move the file.
-$Recaptcha['Location'] = __DIR__.'/libs/recaptchalib.php';
-
-// This is the public key you got from Google.
-// They call this a "Site key".
-$Recaptcha['Public'] = '0123456789abcdefghijklmnopqrstvwxyzABCDE';
-
-// This is the secret one. Don't get them mixed up!
-$Recaptcha['Secret'] = 'FGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghi';
-
-// Disable
-
-// $Recaptcha = false;
