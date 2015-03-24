@@ -9,8 +9,8 @@
 
 // Mailgun API URL
 // Replace example.com with your domain after signing up at
-// $Browning['URL'] = 'https://api.mailgun.net/v2/example.com';
-$Browning['URL'] = 'https://api.mailgun.net/v2/example.com';
+// $Browning['URL'] = 'https://api.mailgun.net/v3/example.com';
+$Browning['URL'] = 'https://api.mailgun.net/v3/example.com';
 
 // Mailgun API Key
 // Use API Key found at https://mailgun.com/cp
