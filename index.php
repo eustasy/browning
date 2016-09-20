@@ -20,29 +20,24 @@
 		isset($_POST['message'])
 	) {
 
-		if (
-			isset($Recpatch) &&
-			$Recaptcha &&
-			is_readable($Recaptcha['Location'])
-		) {
-			require_once $Recaptcha['Location'];
-			$Recaptcha['Response'] = recaptcha_check_answer (
-				$Recaptcha['Secret'],
-				$_SERVER['REMOTE_ADDR'],
-				$_POST['recaptcha_challenge_field'],
-				$_POST['recaptcha_response_field']
-			);
-			if ( !$Recaptcha['Response']->is_valid ) {
+		if ( $Recaptcha['Enable'] ) {
+			$Recaptcha['SecretKey'];
+			$_SERVER['REMOTE_ADDR'];
+			$_POST['g-recaptcha-response'];
+			// TODO Check if Recaptcha response is valid.
+			// https://developers.google.com/recaptcha/docs/verify
+			// curl POST https://www.google.com/recaptcha/api/siteverify
+			if ( !$Recaptcha['Valid'] ) {
 				include __DIR__.'/assets/header.php';
 				echo '<h3>The reCAPTCHA wasn\'t entered correctly. Go back and try it again.</h3>';
-				echo '<p>'.$Recaptcha['Response']->error.'</p>';
+				echo '<p>'.$Recaptcha['Error'].'</p>';
 				include __DIR__.'/assets/footer.php';
 				exit();
 			}
 		}
 
 		// If Recaptcha is turned off OR it was entered correctly.
-		if ( !isset($Recpatch) || !$Recaptcha || $Recaptcha['Response']->is_valid ) {
+		if ( !isset($Recaptcha) || !$Recaptcha || $Recaptcha['Response']->is_valid ) {
 			require 'function.browning.php';
 			// Make sure you've loaded the script and the config before running this function
 			$Mail = Browning($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '');

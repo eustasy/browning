@@ -62,19 +62,20 @@
 								<div class="col span_6_of_12"><input type="text" name="regards" placeholder="Hurricane 3-40U" required /></div>
 								<div class="col span_3_of_12"><br></div>
 							</div>
+							<?php
+								if ( $Recaptcha['Enable'] ) {
+										?>
 							<div class="section group">
 								<div class="col span_3_of_12"><br></div>
 								<div class="col span_6_of_12">
-								<?php
-									if ( $Recaptcha ) {
-										// TODO Check exists / is readable.
-										require_once $Recaptcha['Location'];
-										echo recaptcha_get_html($Recaptcha['Public']);
-									}
-								?>
+										<script src="https://www.google.com/recaptcha/api.js"></script>
+										<div class="g-recaptcha" data-sitekey="<?php echo $Recaptcha['SiteKey']; ?>"></div>
 								</div>
 								<div class="col span_3_of_12"><br></div>
 							</div>
+									<?php
+								}
+							?>
 							<div class="section group">
 								<div class="col span_3_of_12"><br></div>
 								<div class="col span_6_of_12">

@@ -19,4 +19,3 @@ textarea {
 textarea { resize: vertical; }
 input[type='reset'] { background: #777; color: #ddd; padding: 3% 6%; width: 100%; }
 input[type='submit'] { background: #2980b9; color: #fff; padding: 2% 4%; width: 100%; }
-#recaptcha_widget_div { float: right; }

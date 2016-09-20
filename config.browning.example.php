@@ -27,3 +27,7 @@ $Browning['Default']['Regards'] = 'Example Support';
 // Should match the domain in your API URL.
 // $Browning['Default']['ReplyTo'] = 'support@example.com';
 $Browning['Default']['ReplyTo'] = 'support@example.com';
+
+$Recaptcha['Enable'] = true;
+$Recaptcha['SiteKey'] = '0123456789abcdefghijklmnopqrstuvwxyz';
+$Recaptcha['SecretKey'] = '0123456789abcdefghijklmnopqrstuvwxyz';
