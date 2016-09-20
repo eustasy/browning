@@ -18,7 +18,7 @@ if ( isset($_POST['dear']) && isset($_POST['subject']) && isset($_POST['message'
 
 	$Mail =  Browning($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '');
 
-	/* Browning_Send(
+	/* Browning(
 		'to email',
 		'subject',
 		'message',
