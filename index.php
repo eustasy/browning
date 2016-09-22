@@ -8,10 +8,10 @@
 		require __DIR__.'/_settings/browning.default.php';
 		require __DIR__.'/_settings/browning.custom.php';
 	} else {
-		include __DIR__.'/assets/header.php';
+		include __DIR__.'/_templates/header.php';
 		echo '<h3>Configuration not available.</h3>';
 		echo '<p>You need to copy <code>_settings/browning.default.php</code> to <code>_settings/browning.custom.php</code> and edit it with keys for Mailgun and Recaptcha.</p>';
-		include __DIR__.'/assets/footer.php';
+		include __DIR__.'/_templates/footer.php';
 		exit;
 	}
 
@@ -62,7 +62,7 @@
 		}
 
 	} else {
-		include __DIR__.'/assets/header.php';
-		include __DIR__.'/assets/form.php';
-		include __DIR__.'/assets/footer.php';
+		include __DIR__.'/_templates/header.php';
+		include __DIR__.'/_templates/form.php';
+		include __DIR__.'/_templates/footer.php';
 	}
