@@ -82,8 +82,12 @@ function Browning($Dear, $Subject, $Message, $Regards = false, $ReplyTo = false,
 		$Browning['Info'] = curl_getinfo($Browning['Curl']);
 
 		if ( $Debug ) {
-			var_dump($Browning['Response']);
+			echo 'Info is ';
 			var_dump($Browning['Info']);
+			echo PHP_EOL;
+			echo 'Response is ';
+			var_dump($Browning['Response']);
+			echo PHP_EOL;
 		}
 
 		if ( curl_errno($Browning['Curl']) ) {
