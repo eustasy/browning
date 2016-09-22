@@ -4,14 +4,15 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(-1);
 
-	if ( is_readable('config.browning.php') ) {
-		require 'config.browning.php';
+	if ( is_readable(__DIR__.'/_settings/browning.custom.php') ) {
+		require __DIR__.'/_settings/browning.default.php';
+		require __DIR__.'/_settings/browning.custom.php';
 	} else {
 		include __DIR__.'/assets/header.php';
 		echo '<h3>Configuration not available.</h3>';
-		echo '<p>You need to copy <code>config.browning.example.php</code> to <code>config.browning.php</code> and edit it with keys for Mailgun and Recaptcha.</p>';
+		echo '<p>You need to copy <code>_settings/browning.default.php</code> to <code>_settings/browning.custom.php</code> and edit it with keys for Mailgun and Recaptcha.</p>';
 		include __DIR__.'/assets/footer.php';
-		exit();
+		exit;
 	}
 
 	if (
@@ -32,7 +33,7 @@
 				echo '<h3>The reCAPTCHA wasn\'t entered correctly. Go back and try it again.</h3>';
 				echo '<p>'.$Recaptcha['Error'].'</p>';
 				include __DIR__.'/assets/footer.php';
-				exit();
+				exit;
 			}
 		}
 

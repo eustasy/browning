@@ -1,1 +1,2 @@
-config.browning.php
+*.custom.*
+*~

@@ -13,8 +13,9 @@ To use, do somethings like this.
 // If you're ready to fire
 if ( isset($_POST['dear']) && isset($_POST['subject']) && isset($_POST['message']) ) {
 
-	require 'config.browning.php';
-	require 'function.browning.php';
+	require '_settings/browning.default.php';
+	include '_settings/browning.custom.php';
+	require '_functions/browning/function.browning.php';
 
 	$Mail =  Browning($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '');
 
