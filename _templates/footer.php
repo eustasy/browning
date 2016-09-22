@@ -1,17 +1,12 @@
-			</div>
-		</div>
-		<div id="footercontainer">
-			<footer class="section group">
-				<div class="col span_1_of_8">
-					<a href="https://eustasy.org/" title="eustasy organisation"><img class="faded" style="max-width: 48px;" src="https://eustasy.org/favicon.ico"></a>
-				</div>
-				<div class="col span_2_of_8"><br></div>
-				<div class="col span_1_of_8"><p class="box-like center"><a href="https://eustasy.org/legal/cookie-policy" title="Cookie Policy">cookies</a></p></div>
-				<div class="col span_1_of_8"><p class="box-like center"><a href="https://eustasy.org/legal/privacy-policy" title="Privacy Policy">privacy</a></p></div>
-				<div class="col span_1_of_8"><p class="box-like center"><a href="https://eustasy.org/legal/website-disclaimer" title="Website Disclaimer">disclaimer</a></p></div>
-				<div class="col span_1_of_8"><p class="box-like center"><a href="https://eustasy.org/legal/copyright-notice" title="Copyright Notice">copyright</a></p></div>
-				<div class="col span_1_of_8"><p class="box-like center"><a href="https://eustasy.org/legal/terms-of-service" title="Terms Of Service">terms</a></p></div>
-			</footer>
-		</div>
+		</section>
+
+		<footer>
+			<p>
+				<a href="https://github.com/eustasy/browning-a-mailgun-script/blob/master/LICENSE.md">MIT License</a> &nbsp;&middot;&nbsp;
+				<a href="https://github.com/eustasy/browning-a-mailgun-script">GitHub</a> &nbsp;&middot;&nbsp;
+				<a href="https://eustasy.org/">eustasy</a>
+			</p>
+		</footer>
+
 	</body>
 </html>
