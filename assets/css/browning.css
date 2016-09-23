@@ -50,6 +50,8 @@ a { color: inherit; text-decoration: none; }
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
+.text-bold { font-weight: bold; }
+.text-italic { font-style: italic; }
 
 .float-center { margin: 0 auto; }
 .float-left { float: left; }
