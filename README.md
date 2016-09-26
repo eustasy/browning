@@ -10,32 +10,27 @@ If possible, make sure you have the following packages installed before using th
 ### Usage
 To use, do somethings like this.
 ```
-// If you're ready to fire
-if ( isset($_POST['dear']) && isset($_POST['subject']) && isset($_POST['message']) ) {
+require '_settings/browning.default.php';
+include '_settings/browning.custom.php';
+require '_functions/browning/function.browning.php';
 
-	require '_settings/browning.default.php';
-	include '_settings/browning.custom.php';
-	require '_functions/browning/function.browning.php';
+$Mail = Browning(
+	'recepient@example.com',
+	'Message Subject',
+	'Text or HTML Body',
+	'Sender Name',
+	'reply-to@example.com',
+	true
+);
 
-	$Mail =  Browning($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], '');
-
-	/* Browning(
-		'to email',
-		'subject',
-		'message',
-		'from name',
-		'reply-to email',
-		debug [boolean: true, false; default: false;]
-	); */
-
-	if ( $Mail['Success'] ) {
-		echo '<h2>Success!</h2>';
-	} else {
-		echo '<h2>Failure!</h2>';
-		var_dump($Mail);
-	}
-
+if ( $Mail['Success'] ) {
+	echo '<h2>Success! We managed to send the E-Mail.</h2>'.PHP_EOL;
+	echo '<p class="sub-title">Thanks for believeing in us.</p>'.PHP_EOL;
 } else {
-	// Show a form.
+	echo '<h2>Sorry, we failed to send the E-Mail.</h2>'.PHP_EOL;
+	echo '<p class="sub-title error">'.$Mail['Error'].'</p>'.PHP_EOL;
+	echo '<!--'.PHP_EOL;
+	var_dump($Mail);
+	echo PHP_EOL.'-->'.;
 }
 ```
