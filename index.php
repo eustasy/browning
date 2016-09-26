@@ -59,5 +59,6 @@
 	} else {
 		include __DIR__.'/_templates/header.php';
 		include __DIR__.'/_templates/form.php';
+		include __DIR__.'/_templates/code.php';
 		include __DIR__.'/_templates/footer.php';
 	}
