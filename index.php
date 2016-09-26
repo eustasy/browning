@@ -42,25 +42,17 @@
 			require __DIR__.'/_functions/browning/function.browning.php';
 			// Make sure you've loaded the script and the config before running this function
 			$Mail = Browning($_POST['dear'], $_POST['subject'], $_POST['message'], $_POST['regards'], $_POST['regards']);
-			/* Browning_Send(
-				'to email',
-				'subject',
-				'message',
-				'from name',
-				'reply-to email',
-				debug [boolean: true, false; default: false;]
-			); */
 			include __DIR__.'/_templates/header.php';
 			if ( $Mail['Success'] ) {
-				echo '<h2>Done!</h2>';
-				echo '<p class="sub-title">A message has been sent somewhere. It\'s that easy!';
+				echo '<h2>Success! We managed to send the E-Mail.</h2>'.PHP_EOL;
+				echo '<p class="sub-title">A message has been sent somewhere. It\'s that easy!</p>'.PHP_EOL;
 			} else {
-				echo '<h2>Nooo!</h2>';
+				echo '<h2>Sorry, we failed to send the E-Mail.</h2>'.PHP_EOL;
+				echo '<p class="sub-title error">'.$Mail['Error'].'</p>'.PHP_EOL;
 				echo '<code class="background-midnight-blue color-white rounded whole">';
 				var_dump($Mail);
 				echo '</code>';
 			}
-			// include __DIR__.'/_templates/done.php';
 			include __DIR__.'/_templates/footer.php';
 		}
 
