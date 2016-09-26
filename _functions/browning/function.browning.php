@@ -2,7 +2,7 @@
 
 /*
 
-Browning: A Mailgun Script (v0.25)
+Browning: A Mailgun Script (v0.28)
 https://github.com/eustasy/browning-a-mailgun-script
 ====================================================
 
