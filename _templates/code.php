@@ -1,3 +1,5 @@
+<h2>Example Code</h2>
+<br>
 <code class="background-midnight-blue color-white rounded whole">
 require '_settings/browning.default.php';
 include '_settings/browning.custom.php';
