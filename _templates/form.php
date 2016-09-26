@@ -79,10 +79,7 @@
 							?>
 
 							<div class="grid">
-								<div class="whole smablet-quarter equalize"></div>
-								<div class="whole smablet-quarter equalize">
-									<input class="false-text-button background-transparent color-white text-bold" type="reset" value="Reset" />
-								</div>
+								<div class="whole smablet-half equalize"></div>
 								<div class="whole smablet-half equalize text-right">
 									<input class="button background-white color-belize-hole display-block rounded float-right min-width-10vw text-center text-bold" type="submit" value="Send E-Mail" />
 								</div>
