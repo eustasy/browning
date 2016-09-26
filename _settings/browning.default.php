@@ -28,6 +28,6 @@ $Browning['Default']['Regards'] = 'Example Support';
 // $Browning['Default']['ReplyTo'] = 'support@example.com';
 $Browning['Default']['ReplyTo'] = 'support@example.com';
 
-$Recaptcha['Enable'] = true;
+$Recaptcha['Enable'] = false;
 $Recaptcha['SiteKey'] = '0123456789abcdefghijklmnopqrstuvwxyz';
 $Recaptcha['SecretKey'] = '0123456789abcdefghijklmnopqrstuvwxyz';
