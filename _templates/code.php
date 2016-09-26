@@ -15,13 +15,13 @@ $Mail = Browning(
 );
 
 if ( $Mail['Success'] ) {
-    echo '<h2>Success! We managed to send the E-Mail.</h2>'.PHP_EOL;
-    echo '<p class="sub-title">Thanks for believeing in us.</p>'.PHP_EOL;
+    echo '&lt;h2&gt;Success! We managed to send the E-Mail.&lt;/h2&gt;'.PHP_EOL;
+    echo '&lt;p class="sub-title"&gt;Thanks for believeing in us.&lt;/p&gt;'.PHP_EOL;
 } else {
-    echo '<h2>Sorry, we failed to send the E-Mail.</h2>'.PHP_EOL;
-    echo '<p class="sub-title error">'.$Mail['Error'].'</p>'.PHP_EOL;
-    echo '<!--'.PHP_EOL;
+    echo '&lt;h2&gt;Sorry, we failed to send the E-Mail.&lt;/h2&gt;'.PHP_EOL;
+    echo '&lt;p class="sub-title error"&gt;'.$Mail['Error'].'&lt;/p&gt;'.PHP_EOL;
+    echo '&lt;!--'.PHP_EOL;
     var_dump($Mail);
-    echo PHP_EOL.'-->'.;
+    echo PHP_EOL.'--&gt;'.;
 }
 </code>
