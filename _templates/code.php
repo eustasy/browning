@@ -1,7 +1,6 @@
 <h2>Example Code</h2>
 <br>
-<code class="background-midnight-blue color-white rounded whole">
-require '_settings/browning.default.php';
+<code class="background-midnight-blue color-white rounded whole">require '_settings/browning.default.php';
 include '_settings/browning.custom.php';
 require '_functions/browning/function.browning.php';
 
@@ -23,5 +22,4 @@ if ( $Mail['Success'] ) {
     echo '&lt;!--'.PHP_EOL;
     var_dump($Mail);
     echo PHP_EOL.'--&gt;'.;
-}
-</code>
+}</code>
