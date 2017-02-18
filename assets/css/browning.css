@@ -35,22 +35,22 @@ a {
 }
 .button {
 	box-shadow:
-		0 2px 5px 0 rgba(0,0,0,0.16),
-		0 2px 10px 0 rgba(0,0,0,0.12);
+		0 2px 5px 0 rgba(0, 0, 0, 0.16),
+		0 2px 10px 0 rgba(0, 0, 0, 0.12);
 	margin: 2rem 0;
-	padding: .7rem 1rem;
+	padding: 0.7rem 1rem;
 	transition: all 200ms ease-in-out;
 }
 .button:hover { opacity: 0.9; }
 .button:active { box-shadow: none; }
 .false-text-button {
 	margin: 2rem 0;
-	padding: .7rem;
+	padding: 0.7rem;
 }
 .text-center { text-align: center; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
-.text-bold { font-weight: bold; }
+.text-bold { font-weight: 700; }
 .text-italic { font-style: italic; }
 .float-center { margin: 0 auto; }
 .float-left { float: left; }
@@ -62,12 +62,18 @@ code.display-inline,
 input.display-inline,
 textarea.display-inline {
 	line-height: 1.4;
-	padding: .35rem .5rem;
+	padding: 0.35rem 0.5rem;
 }
 .rounded { border-radius: 5px; }
 .min-width-10vw { min-width: 10vw; }
-.github-corner:hover .octo-arm { animation:octocat-wave 560ms ease-in-out; }
-.github-corner svg {fill:#fff; position: absolute; top: 0; border: 0; right: 0; }
+.github-corner:hover .octo-arm { animation: octocat-wave 560ms ease-in-out; }
+.github-corner svg {
+	fill: #ffffff;
+	position: absolute;
+	top: 0;
+	border: 0;
+	right: 0;
+}
 @keyframes octocat-wave {
 	0%,
 	100% { transform: rotate(0); }
