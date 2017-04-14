@@ -12,9 +12,8 @@
 		<title>Browning - A Lightweight Mailgun Script &nbsp;&middot;&nbsp; eustasy Labs</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/g/normalize,colors.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lusitana|Source+Code+Pro" data-noprefix>
-		<link rel="stylesheet" href="http://labs.eustasy.org/assets/css/grid.min.css">
-		<link rel="stylesheet" href="http://labs.eustasy.org/assets/css/labs.css">
-		<link rel="stylesheet" href="browning.css">
+		<link rel="stylesheet" href="https://labs.eustasy.org/assets/css/grid.min.css">
+		<link rel="stylesheet" href="https://labs.eustasy.org/assets/css/labs.css">
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
