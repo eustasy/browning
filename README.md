@@ -5,7 +5,7 @@ Browning is a tiny PHP function to send emails with Mailgun, that uses CURL inst
 
 [![Build Status](https://travis-ci.org/eustasy/browning-a-mailgun-script.svg?branch=master)](https://travis-ci.org/eustasy/browning-a-mailgun-script)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ad06973b8d44091b0caf436ddd953f2)](https://www.codacy.com/app/lewisgoddard/browning-a-mailgun-script?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=eustasy/browning-a-mailgun-script&amp;utm_campaign=Badge_Grade)
-[![Code Climate](https://codeclimate.com/github/eustasy/browning-a-mailgun-script/badges/gpa.svg)](https://codeclimate.com/github/eustasy/nbrowning-a-mailgun-script)
+[![Code Climate](https://codeclimate.com/github/eustasy/browning-a-mailgun-script/badges/gpa.svg)](https://codeclimate.com/github/eustasy/browning-a-mailgun-script)
 [![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=398934)](https://www.bountysource.com/teams/eustasy/issues?tracker_ids=398934)
 
 ### Setup
