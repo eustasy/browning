@@ -12,7 +12,7 @@
 		echo '<div class="smablet-quarter"></div>';
 		echo '<div class="whole smablet-half">';
 		echo '<h3>Configuration not available.</h3>';
-		echo '<p>You need to copy <code class="background-midnight-blue color-white rounded display-inline-block">_settings/browning.default.php</code> to <code  class="background-midnight-blue color-white rounded display-inline-block">_settings/browning.custom.php</code> and edit it with keys for Mailgun and Recaptcha.</p>';
+		echo '<p>You need to copy <code class="background-flatui-midnight-blue color-white rounded display-inline-block">_settings/browning.default.php</code> to <code  class="background-midnight-blue color-white rounded display-inline-block">_settings/browning.custom.php</code> and edit it with keys for Mailgun and Recaptcha.</p>';
 		echo '</div>';
 		echo '<div class="smablet-quarter"></div>';
 		include __DIR__.'/_templates/footer.php';
@@ -49,7 +49,7 @@
 			} else {
 				echo '<h2>Sorry, we failed to send the E-Mail.</h2>'.PHP_EOL;
 				echo '<p class="sub-title error">'.$Mail['Error'].'</p>'.PHP_EOL;
-				echo '<code class="background-midnight-blue color-white rounded whole">';
+				echo '<code class="background-flatui-midnight-blue color-white rounded whole">';
 				var_dump($Mail);
 				echo '</code>';
 			}
