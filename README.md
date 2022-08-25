@@ -4,9 +4,7 @@
 Browning is a tiny PHP function to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.
 
 [![Build Status](https://travis-ci.org/eustasy/browning-a-mailgun-script.svg?branch=master)](https://travis-ci.org/eustasy/browning-a-mailgun-script)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2ad06973b8d44091b0caf436ddd953f2)](https://www.codacy.com/app/lewisgoddard/browning-a-mailgun-script?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=eustasy/browning-a-mailgun-script&amp;utm_campaign=Badge_Grade)
 [![Code Climate](https://codeclimate.com/github/eustasy/browning-a-mailgun-script/badges/gpa.svg)](https://codeclimate.com/github/eustasy/browning-a-mailgun-script)
-[![Bountysource](https://www.bountysource.com/badge/tracker?tracker_id=398934)](https://www.bountysource.com/teams/eustasy/issues?tracker_ids=398934)
 
 ### Setup
 If possible, make sure you have the following packages installed before using this script. It may work without some of them, but all are recommended. CURL is required.
@@ -14,7 +12,7 @@ If possible, make sure you have the following packages installed before using th
 
 ### Usage
 To use, do somethings like this.
-```
+```php
 require '_settings/browning.default.php';
 include '_settings/browning.custom.php';
 require '_functions/browning/function.browning.php';
@@ -25,7 +23,7 @@ $Mail = Browning(
 	'Text or HTML Body',
 	'Sender Name',
 	'reply-to@example.com',
-	true
+	true // debug
 );
 
 if ( $Mail['Success'] ) {
