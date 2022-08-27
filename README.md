@@ -3,8 +3,7 @@
 
 Browning is a tiny PHP function to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.
 
-[![Build Status](https://travis-ci.org/eustasy/browning-a-mailgun-script.svg?branch=master)](https://travis-ci.org/eustasy/browning-a-mailgun-script)
-[![Code Climate](https://codeclimate.com/github/eustasy/browning-a-mailgun-script/badges/gpa.svg)](https://codeclimate.com/github/eustasy/browning-a-mailgun-script)
+[![Normal](https://github.com/eustasy/browning/actions/workflows/normal.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/normal.yml)[![Code Climate](https://codeclimate.com/github/eustasy/browning/badges/gpa.svg)](https://codeclimate.com/github/eustasy/browning)
 
 ### Setup
 If possible, make sure you have the following packages installed before using this script. It may work without some of them, but all are recommended. CURL is required.
