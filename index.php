@@ -12,7 +12,8 @@
 		echo '<div class="smablet-quarter"></div>';
 		echo '<div class="whole smablet-half">';
 		echo '<h3>Configuration not available.</h3>';
-		echo '<p>You need to copy <code class="background-flatui-midnight-blue color-white rounded display-inline-block">_settings/browning.default.php</code> to <code  class="background-midnight-blue color-white rounded display-inline-block">_settings/browning.custom.php</code> and edit it with keys for Mailgun and Recaptcha.</p>';
+		echo '<p>You need to copy <code class="background-flatui-midnight-blue color-white rounded display-inline-block">_settings/browning.default.php</code> to
+  <code class="background-flatui-midnight-blue color-white rounded display-inline-block">_settings/browning.custom.php</code> and edit it with keys for Mailgun and Recaptcha.</p>';
 		echo '</div>';
 		echo '<div class="smablet-quarter"></div>';
 		include __DIR__.'/_templates/footer.php';
