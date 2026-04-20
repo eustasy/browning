@@ -5,6 +5,20 @@
 [![Normal](https://github.com/eustasy/browning/actions/workflows/normal.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/normal.yml)
 [![Code Climate](https://codeclimate.com/github/eustasy/browning/badges/gpa.svg)](https://codeclimate.com/github/eustasy/browning)
 
+## Installation
+
+```
+composer require eustasy/browning-a-mailgun-script
+```
+
+Then include the Composer autoloader in your project:
+
+```php
+require 'vendor/autoload.php';
+```
+
+This makes both `Browning()` and `Recaptcha_Verify()` available without any manual `require` calls.
+
 ## 1. Setup with Mailgun
 
 Make sure you have the following packages installed. CURL is required.
@@ -13,7 +27,7 @@ Make sure you have the following packages installed. CURL is required.
 libmagic-dev php-dev libcurl3 php-curl
 ```
 
-Copy `_settings/browning.default.php` to `_settings/browning.custom.php` and fill in your details:
+Create a config file anywhere outside your `vendor/` directory, for example `config/browning.php`, and fill in your details:
 
 ```php
 // Mailgun API URL — replace example.com with your verified Mailgun domain
@@ -29,14 +43,15 @@ $Browning['Default']['Regards'] = 'Example Support';
 $Browning['Default']['ReplyTo'] = 'support@example.com';
 ```
 
+Add `config/browning.php` to your `.gitignore` to avoid committing credentials.
+
 ## 2. Code
 
 Load the settings and function, then call `Browning()`:
 
 ```php
-require '_settings/browning.default.php';
-require '_settings/browning.custom.php';
-require_once '_functions/browning/function.browning.php';
+require 'vendor/autoload.php';
+require 'config/browning.php';
 
 $Mail = Browning(
     'recipient@example.com', // Required: recipient address
@@ -63,12 +78,12 @@ The function always returns an array with two keys:
 
 ## 3. Setup with reCAPTCHA
 
-To protect your contact form with Google reCAPTCHA v2, add your site and secret keys to `_settings/browning.custom.php`:
+To protect your contact form with Google reCAPTCHA v2, add your site and secret keys to your config file (e.g. `config/browning.php`):
 
 ```php
 $Recaptcha['Enable'] = true;
-$Recaptcha['SiteKey'] = 'your-site-key';
-$Recaptcha['SecretKey'] = 'your-secret-key';
+$Recaptcha['SiteKey'] = '0123456789abcdefghijklmnopqrstuvwxyz';
+$Recaptcha['SecretKey'] = '0123456789abcdefghijklmnopqrstuvwxyz';
 ```
 
 Keys can be obtained from the [Google reCAPTCHA admin console](https://www.google.com/recaptcha/admin).
@@ -94,8 +109,6 @@ Add the reCAPTCHA widget to your HTML form. Include the reCAPTCHA script and add
 Before sending the email, verify the reCAPTCHA response server-side:
 
 ```php
-require_once '_functions/browning/function.recaptcha.verify.php';
-
 $Recaptcha['Validity'] = Recaptcha_Verify(
     $Recaptcha['SecretKey'],
     $_POST['g-recaptcha-response'],
@@ -109,7 +122,6 @@ if (!$Recaptcha['Validity']['Success']) {
     }
 } else {
     // reCAPTCHA passed — send the email
-    require_once '_functions/browning/function.browning.php';
     $Mail = Browning($_POST['dear'], $_POST['subject'], $_POST['message']);
 }
 ```

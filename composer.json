@@ -1,7 +1,7 @@
 {
-	"name": "eustasy/browing-a-mailgun-script",
+	"name": "eustasy/browning-a-mailgun-script",
 	"description": "Browning: A Lightweight Mailgun Script using Curl.",
-	"homepage": "http://labs.eustasy.org/browning-a-mailgun-script/",
+	"homepage": "https://github.com/eustasy/browning",
 	"type": "library",
 	"license": "MIT",
 	"authors": [
@@ -20,7 +20,13 @@
 		"curl"
 	],
 	"require": {
-		"php": ">=5.3.0",
+		"php": ">=7.4.0",
 		"lib-curl": "*"
+	},
+	"autoload": {
+		"files": [
+			"_functions/browning/function.browning.php",
+			"_functions/browning/function.recaptcha.verify.php"
+		]
 	}
 }
