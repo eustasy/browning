@@ -5,7 +5,8 @@
 // https://developers.google.com/recaptcha/docs/verify
 // curl POST https://www.google.com/recaptcha/api/siteverify
 
-function Recaptcha_Verify($RecaptchaSecret, $Response, $UserIP = false, $Debug = false) {
+function Recaptcha_Verify($RecaptchaSecret, $Response, $UserIP = false, $Debug = false)
+{
 
 	$Check = curl_init();
 
@@ -24,7 +25,7 @@ function Recaptcha_Verify($RecaptchaSecret, $Response, $UserIP = false, $Debug =
 	$Response = json_decode($Response, true);
 	$Info = curl_getinfo($Check);
 
-	if ( $Debug ) {
+	if ($Debug) {
 		echo '$Info is ';
 		var_dump($Info);
 		echo PHP_EOL;
@@ -33,13 +34,10 @@ function Recaptcha_Verify($RecaptchaSecret, $Response, $UserIP = false, $Debug =
 		echo PHP_EOL;
 	}
 
-	if ( curl_errno($Check) ) {
-		return array('Success' => false, 'Error' => curl_errno($Check).' Error: '.curl_error($Check));
-
+	if (curl_errno($Check)) {
+		return array('Success' => false, 'Error' => curl_errno($Check) . ' Error: ' . curl_error($Check));
 	} else {
-		curl_close($Check);
 		$Response['Success'] = $Response['success'];
 		return $Response;
 	}
-
 }
