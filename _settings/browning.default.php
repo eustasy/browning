@@ -1,6 +1,6 @@
 <?php
 
-////	Browning: A Mailgun Script (v0.29)
+////	Browning: A Mailgun Script (v0.30)
 // https://github.com/eustasy/browning-a-mailgun-script
 
 ////	Mailgun
