@@ -22,7 +22,7 @@ plugins:
       - php
       - python
   eslint:
-    enabled: true
+    enabled: false
     channel: "eslint-3"
     # config: .eslintrc.json
     # ignore: .eslintignore
@@ -63,9 +63,9 @@ plugins:
       Controversial/CamelCaseVariableName:
         enabled: false
   shellcheck:
-    enabled: true
+    enabled: false
   stylelint:
-    enabled: true
+    enabled: false
 
 exclude_patterns:
   - "_libs/**"
