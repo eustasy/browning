@@ -92,12 +92,13 @@ function Browning($Dear, $Subject, $Message, $Regards = false, $ReplyTo = false,
 	$Browning['Response'] = curl_exec($Browning['Curl']);
 	$Browning['Info'] = curl_getinfo($Browning['Curl']);
 	$CurlError = curl_errno($Browning['Curl']);
+	$CurlErrorMessage = curl_error($Browning['Curl']);
 
 	$ErrorMessage = false;
 
 	if ($CurlError) {
 		$ErrorMessage = $Debug
-			? $CurlError . ' Error: ' . curl_error($Browning['Curl'])
+			? $CurlError . ' Error: ' . $CurlErrorMessage
 			: 'Unable to send email at this time. Please try again later.';
 	} else if (!$Browning['Response']) {
 		$ErrorMessage = $Debug

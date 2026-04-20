@@ -22,6 +22,8 @@ function Recaptcha_Verify($RecaptchaSecret, $Response, $UserIP = false, $Debug =
 	));
 
 	$Response = curl_exec($Check);
+	$CheckError = curl_errno($Check);
+	$CheckErrorMessage = curl_error($Check);
 	$Response = json_decode($Response, true);
 	$Info = curl_getinfo($Check);
 
@@ -34,8 +36,8 @@ function Recaptcha_Verify($RecaptchaSecret, $Response, $UserIP = false, $Debug =
 		echo PHP_EOL;
 	}
 
-	if (curl_errno($Check)) {
-		return array('Success' => false, 'Error' => curl_errno($Check) . ' Error: ' . curl_error($Check));
+	if ($CheckError) {
+		return array('Success' => false, 'Error' => $CheckError . ' Error: ' . $CheckErrorMessage);
 	} else {
 		$Response['Success'] = $Response['success'];
 		return $Response;

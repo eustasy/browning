@@ -5,10 +5,10 @@
 
 ////	Mailgun
 // Sign up at https://mailgun.com/signup
-// First 10,00 mails a month free.
+// First 10,000 mails a month free.
 
 // Mailgun API URL
-// Replace example.com with your domain after signing up at
+// Replace example.com with your verified Mailgun domain.
 // $Browning['URL'] = 'https://api.mailgun.net/v3/example.com';
 $Browning['URL'] = 'https://api.mailgun.net/v3/example.com';
 
