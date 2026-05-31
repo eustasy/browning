@@ -114,31 +114,45 @@ name = "osv-scanner"
 # global, so dependency/security scanners (osv-scanner, gitleaks, trivy, bandit,
 # actionlint, zizmor) still see every file.
 
-# Machine-managed / tool-owned files that must never be reformatted: composer
-# owns composer.json; .vscode and .claude are editor/tool-managed; install.sh
-# deploys .qlty/, dependabot.yml and the workflows (overwritten on every update),
-# so a downstream repo can't fix their formatting without diverging from .normal.
+# 1. Tool-managed config directories. No project source lives here — only tooling
+#    config/state deployed by .normal, the editor, or Claude Code — so every
+#    linter and formatter skips them (e.g. phpstan must not analyse
+#    .qlty/configs/.php-cs-fixer.dist.php; markdownlint must not lint .claude
+#    agent/command docs). Security scanners are deliberately omitted, so gitleaks
+#    et al. still scan these paths for leaked secrets.
+[[exclude]]
+plugins = [
+  "prettier", "php-cs-fixer", "shfmt", "shellcheck", "phpstan", "markdownlint",
+  "stylelint", "oxc", "knip", "ruff", "sqlfluff", "yamllint", "dotenv-linter",
+]
+file_patterns = [
+  "**/.qlty/**",   # qlty config + deployed linter/formatter configs
+  "**/.vscode/**", # editor-managed
+  "**/.claude/**", # Claude Code config (tool-managed)
+]
+
+# 2. Keep prettier's scope identical in CI and on the qlty.sh dashboard. The
+#    per-language workflows only ever run prettier on JSON and JS/TS; every other
+#    language prettier supports has a dedicated owner, so it must not format them.
+#    Without these globs the dashboard runs prettier on files CI never checks
+#    with it (markdown, CSS, …) that markdownlint / stylelint already own.
 [[exclude]]
 plugins = ["prettier"]
 file_patterns = [
-  "**/composer.json",
-  "**/.qlty/**",
-  "**/.vscode/**",
-  "**/.claude/**",
-  "**/.github/dependabot.yml",
-  "**/.github/workflows/**",
+  "**/*.md",          # markdownlint
+  "**/*.css",         # stylelint
+  "**/*.scss",        # stylelint
+  "**/*.html",        # html-validate
+  "**/*.htm",         # html-validate
+  "**/*.xml",         # xmllint
+  "**/*.yml",         # yamllint / actionlint / zizmor (covers dependabot + workflows)
+  "**/*.yaml",        # yamllint / actionlint / zizmor
+  "**/composer.json", # owned by composer (inside prettier's JSON domain)
 ]
 
-# .php-cs-fixer.dist.php and the other .qlty/ configs are deployed by install.sh.
-[[exclude]]
-plugins = ["php-cs-fixer"]
-file_patterns = [
-  "**/.qlty/**",
-]
-
-# actionlint + zizmor already lint workflows with GitHub-aware rules, so
-# yamllint's generic style checks (e.g. the YAML 1.1 truthy false-positive on
-# `on:`) are just noise on the install.sh-deployed workflow + dependabot files.
+# 3. actionlint + zizmor already lint workflows with GitHub-aware rules, so
+#    yamllint's generic style checks (e.g. the YAML 1.1 truthy false-positive on
+#    `on:`) are just noise on the install.sh-deployed workflow + dependabot files.
 [[exclude]]
 plugins = ["yamllint"]
 file_patterns = [
