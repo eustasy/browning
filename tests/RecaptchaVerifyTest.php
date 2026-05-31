@@ -43,7 +43,7 @@ final class RecaptchaVerifyTest extends TestCase
         $result = \Recaptcha_Verify('secret', 'INVALID', false, false, $this->endpoint());
 
         $this->assertFalse($result['Success']);
-        $this->assertContains('invalid-input-response', $result['error-codes']);
+        $this->assertContains('invalid-input-response', (array) $result['error-codes']);
     }
 
     public function testNonJsonResponseReturnsInvalidError(): void

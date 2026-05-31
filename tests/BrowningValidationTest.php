@@ -60,6 +60,6 @@ final class BrowningValidationTest extends TestCase
         $result = \Browning('to@example.com', '0', 'Body');
 
         $this->assertFalse($result['Success']);
-        $this->assertStringContainsString('subject', $result['Error']);
+        $this->assertStringContainsString('subject', (string) $result['Error']);
     }
 }

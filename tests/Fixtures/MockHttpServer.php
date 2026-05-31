@@ -65,7 +65,7 @@ final class MockHttpServer
     /**
      * Every request the server has received, oldest first.
      *
-     * @return array<int, array{path: string, post: array<string, mixed>}>
+     * @return list<array{path: string, post: array<array-key, mixed>}>
      */
     public function requests(): array
     {
@@ -74,15 +74,26 @@ final class MockHttpServer
         $requests = [];
         foreach (array_filter(explode("\n", $raw)) as $line) {
             $decoded = json_decode($line, true);
-            if (is_array($decoded)) {
-                $requests[] = $decoded;
+            if (! is_array($decoded)) {
+                continue;
             }
+
+            $path = $decoded['path'] ?? '';
+            $post = $decoded['post'] ?? [];
+            $requests[] = [
+                'path' => is_string($path) ? $path : '',
+                'post' => is_array($post) ? $post : [],
+            ];
         }
 
         return $requests;
     }
 
-    /** The most recent request, or null if none has arrived. */
+    /**
+     * The most recent request, or null if none has arrived.
+     *
+     * @return array{path: string, post: array<array-key, mixed>}|null
+     */
     public function lastRequest(): ?array
     {
         $requests = $this->requests();
