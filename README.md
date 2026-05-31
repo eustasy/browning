@@ -54,7 +54,7 @@ return [
     'URL' => 'https://api.mailgun.net/v3/example.com',
 
     // Mailgun private API key.
-    // Get it from https://app.mailgun.com/settings/api_security.
+    // Get it from "Domain Settings" > "Sending Keys" in your Mailgun dashboard.
     'Key' => '<your-mailgun-api-key>',
 
     'Default' => [
