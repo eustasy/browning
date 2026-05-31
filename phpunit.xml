@@ -12,7 +12,7 @@
     </testsuites>
     <source>
         <include>
-            <directory>_functions</directory>
+            <directory>src</directory>
         </include>
     </source>
 </phpunit>

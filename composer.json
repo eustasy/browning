@@ -28,8 +28,8 @@
 	},
 	"autoload": {
 		"files": [
-			"_functions/browning/function.browning.php",
-			"_functions/browning/function.recaptcha.verify.php"
+			"src/browning.php",
+			"src/recaptcha.verify.php"
 		]
 	},
 	"autoload-dev": {
