@@ -67,6 +67,13 @@ name = "sqlfluff"
 
 [[plugin]]
 name = "yamllint"
+# install.sh deploys these (overwritten on every .normal update), and actionlint
+# + zizmor already lint the workflows with GitHub-aware rules — yamllint's generic
+# style checks (e.g. the YAML 1.1 truthy false-positive on `on:`) are just noise.
+exclude_patterns = [
+  "**/.github/workflows/**",
+  "**/.github/dependabot.yml",
+]
 
 [[plugin]]
 name = "shellcheck"
@@ -87,9 +94,28 @@ name = "dotenv-linter"
 
 [[plugin]]
 name = "prettier"
+# Machine-managed files: composer owns composer.json; .vscode and .claude are
+# editor/tool-managed; install.sh deploys the rest (overwriting them on every
+# .normal update), so a downstream repo can't fix their formatting without
+# diverging. Excluded from formatting only — NOT globally — so other plugins
+# still see them (osv-scanner reads composer.json; zizmor, actionlint and
+# yamllint still lint .github/workflows).
+exclude_patterns = [
+  "**/composer.json",          # owned by composer
+  "**/.qlty/**",               # qlty.toml + all linter/formatter configs
+  "**/.vscode/**",             # editor settings (install.sh deploys settings.json)
+  "**/.claude/**",             # Claude Code config (tool-managed)
+  "**/.github/dependabot.yml", # deployed by install.sh
+  "**/.github/workflows/**",   # deployed by install.sh
+]
 
 [[plugin]]
 name = "php-cs-fixer"
+# .php-cs-fixer.dist.php and other .qlty/ configs are deployed by .normal's
+# install.sh — exclude from formatting so they aren't reflowed.
+exclude_patterns = [
+  "**/.qlty/**",
+]
 
 [[plugin]]
 name = "shfmt"

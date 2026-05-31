@@ -1,4 +1,4 @@
-# eustasy/.Normal 4.0beta3
+# eustasy/.Normal 4.0beta4
 name: Normal (Security)
 
 on:
@@ -19,8 +19,9 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - uses: qltysh/qlty-action/install@v2
+      - uses: qltysh/qlty-action/install@a19242102d17e497f437d7466aa01b528537e899 # v2.2.0
 
       - name: Security scan
         run: qlty check --all --no-formatters --filter=gitleaks,trivy,bandit,semgrep,osv-scanner
