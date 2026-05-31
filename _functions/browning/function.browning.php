@@ -31,7 +31,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-function Browning($Dear, $Subject, $Message, $Regards = false, $ReplyTo = false, $Debug = false)
+/**
+ * Send an email through the Mailgun HTTP API using cURL.
+ *
+ * @param string|null  $Dear    Recipient email address.
+ * @param string|null  $Subject Subject line.
+ * @param string|null  $Message Message body (plain text or HTML).
+ * @param string|false $Regards Optional sender display name; defaults to $Browning['Default']['Regards'].
+ * @param string|false $ReplyTo Optional reply-to address; defaults to $Browning['Default']['ReplyTo'].
+ * @param bool         $Debug   When true, returned error messages include technical detail.
+ *
+ * @return array{Error: string|false, Success: bool}
+ */
+function Browning(?string $Dear, ?string $Subject, ?string $Message, $Regards = false, $ReplyTo = false, bool $Debug = false): array
 {
 
 	global $Browning;

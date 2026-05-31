@@ -5,7 +5,17 @@
 // https://developers.google.com/recaptcha/docs/verify
 // curl POST https://www.google.com/recaptcha/api/siteverify
 
-function Recaptcha_Verify($RecaptchaSecret, $Response, $UserIP = false, $Debug = false)
+/**
+ * Verify a Google reCAPTCHA v2 response token via the siteverify API.
+ *
+ * @param string       $RecaptchaSecret Your reCAPTCHA secret key.
+ * @param string|null  $Response        The g-recaptcha-response token from the form.
+ * @param string|false $UserIP          Optional end-user IP address.
+ * @param bool         $Debug           When true, dump the cURL info and decoded response.
+ *
+ * @return array<string, mixed> The decoded API response with an added 'Success' boolean, or an error array.
+ */
+function Recaptcha_Verify(string $RecaptchaSecret, ?string $Response, $UserIP = false, bool $Debug = false): array
 {
 
 	$Check = curl_init();
@@ -21,25 +31,31 @@ function Recaptcha_Verify($RecaptchaSecret, $Response, $UserIP = false, $Debug =
 		)
 	));
 
-	$Response = curl_exec($Check);
+	$RawResponse = curl_exec($Check);
 	$CheckError = curl_errno($Check);
 	$CheckErrorMessage = curl_error($Check);
-	$Response = json_decode($Response, true);
 	$Info = curl_getinfo($Check);
+
+	$Decoded = is_string($RawResponse) ? json_decode($RawResponse, true) : null;
 
 	if ($Debug) {
 		echo '$Info is ';
 		var_dump($Info);
 		echo PHP_EOL;
 		echo '$Response is ';
-		var_dump($Response);
+		var_dump($Decoded);
 		echo PHP_EOL;
 	}
 
 	if ($CheckError) {
 		return array('Success' => false, 'Error' => $CheckError . ' Error: ' . $CheckErrorMessage);
-	} else {
-		$Response['Success'] = $Response['success'];
-		return $Response;
 	}
+
+	if (!is_array($Decoded)) {
+		return array('Success' => false, 'Error' => 'Invalid response from reCAPTCHA server.');
+	}
+
+	$Decoded['Success'] = !empty($Decoded['success']);
+
+	return $Decoded;
 }
