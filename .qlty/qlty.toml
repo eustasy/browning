@@ -67,13 +67,6 @@ name = "sqlfluff"
 
 [[plugin]]
 name = "yamllint"
-# install.sh deploys these (overwritten on every .normal update), and actionlint
-# + zizmor already lint the workflows with GitHub-aware rules — yamllint's generic
-# style checks (e.g. the YAML 1.1 truthy false-positive on `on:`) are just noise.
-exclude_patterns = [
-  "**/.github/workflows/**",
-  "**/.github/dependabot.yml",
-]
 
 [[plugin]]
 name = "shellcheck"
@@ -94,28 +87,9 @@ name = "dotenv-linter"
 
 [[plugin]]
 name = "prettier"
-# Machine-managed files: composer owns composer.json; .vscode and .claude are
-# editor/tool-managed; install.sh deploys the rest (overwriting them on every
-# .normal update), so a downstream repo can't fix their formatting without
-# diverging. Excluded from formatting only — NOT globally — so other plugins
-# still see them (osv-scanner reads composer.json; zizmor, actionlint and
-# yamllint still lint .github/workflows).
-exclude_patterns = [
-  "**/composer.json",          # owned by composer
-  "**/.qlty/**",               # qlty.toml + all linter/formatter configs
-  "**/.vscode/**",             # editor settings (install.sh deploys settings.json)
-  "**/.claude/**",             # Claude Code config (tool-managed)
-  "**/.github/dependabot.yml", # deployed by install.sh
-  "**/.github/workflows/**",   # deployed by install.sh
-]
 
 [[plugin]]
 name = "php-cs-fixer"
-# .php-cs-fixer.dist.php and other .qlty/ configs are deployed by .normal's
-# install.sh — exclude from formatting so they aren't reflowed.
-exclude_patterns = [
-  "**/.qlty/**",
-]
 
 [[plugin]]
 name = "shfmt"
@@ -133,3 +107,41 @@ name = "trivy"
 
 [[plugin]]
 name = "osv-scanner"
+
+# ── Per-plugin file excludes ─────────────────────────────────────────────────
+# qlty has no plugin-level `exclude_patterns` key (it is silently ignored); scope
+# file skips to specific plugins with [[exclude]] blocks instead. These are NOT
+# global, so dependency/security scanners (osv-scanner, gitleaks, trivy, bandit,
+# actionlint, zizmor) still see every file.
+
+# Machine-managed / tool-owned files that must never be reformatted: composer
+# owns composer.json; .vscode and .claude are editor/tool-managed; install.sh
+# deploys .qlty/, dependabot.yml and the workflows (overwritten on every update),
+# so a downstream repo can't fix their formatting without diverging from .normal.
+[[exclude]]
+plugins = ["prettier"]
+file_patterns = [
+  "**/composer.json",
+  "**/.qlty/**",
+  "**/.vscode/**",
+  "**/.claude/**",
+  "**/.github/dependabot.yml",
+  "**/.github/workflows/**",
+]
+
+# .php-cs-fixer.dist.php and the other .qlty/ configs are deployed by install.sh.
+[[exclude]]
+plugins = ["php-cs-fixer"]
+file_patterns = [
+  "**/.qlty/**",
+]
+
+# actionlint + zizmor already lint workflows with GitHub-aware rules, so
+# yamllint's generic style checks (e.g. the YAML 1.1 truthy false-positive on
+# `on:`) are just noise on the install.sh-deployed workflow + dependabot files.
+[[exclude]]
+plugins = ["yamllint"]
+file_patterns = [
+  "**/.github/workflows/**",
+  "**/.github/dependabot.yml",
+]

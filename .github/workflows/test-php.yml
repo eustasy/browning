@@ -1,7 +1,8 @@
-# eustasy/.Normal 4.0beta4
+# eustasy/.Normal 4.0beta5
 name: Test (PHP)
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["**.php"]

@@ -1,7 +1,8 @@
-# eustasy/.Normal 4.0beta4
+# eustasy/.Normal 4.0beta5
 name: Normal (Shell)
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths: ["**.sh"]
