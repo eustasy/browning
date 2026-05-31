@@ -15,17 +15,6 @@ updates:
         update-types:
           - "minor"
           - "patch"
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    allow:
-      - dependency-type: "all"
-    groups:
-      npm-patching:
-        update-types:
-          - "minor"
-          - "patch"
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
@@ -34,17 +23,6 @@ updates:
       - dependency-type: "all"
     groups:
       composer-patching:
-        update-types:
-          - "minor"
-          - "patch"
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    allow:
-      - dependency-type: "all"
-    groups:
-      pip-patching:
         update-types:
           - "minor"
           - "patch"
