@@ -12,7 +12,7 @@
 
 ## Installation
 
-```
+```sh
 composer require eustasy/browning-a-mailgun-script
 ```
 
@@ -28,7 +28,7 @@ This makes both `Browning()` and `Recaptcha_Verify()` available without any manu
 
 Make sure you have the following packages installed. CURL is required.
 
-```
+```text
 libmagic-dev php-dev libcurl3 php-curl
 ```
 
@@ -77,7 +77,7 @@ if ($Mail['Success']) {
 The function always returns an array with two keys:
 
 | Key | Type | Description |
-|---|---|---|
+| --- | --- | --- |
 | `Success` | `bool` | `true` if the email was accepted by Mailgun. |
 | `Error` | `string\|false` | Error message, or `false` on success. With `$Debug = true`, error messages include technical detail. |
 
