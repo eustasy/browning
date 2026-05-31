@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 header('Content-Type: application/json');
 
+$uri = $_SERVER['REQUEST_URI'] ?? '/';
+
 echo json_encode([
-    'path' => parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH),
+    'path' => parse_url(is_string($uri) ? $uri : '/', PHP_URL_PATH),
     'auth_user' => $_SERVER['PHP_AUTH_USER'] ?? null,
     'auth_pw' => $_SERVER['PHP_AUTH_PW'] ?? null,
     'post' => $_POST,

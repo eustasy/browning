@@ -15,12 +15,13 @@ declare(strict_types=1);
  */
 
 return [
-    // Mailgun API URL — replace example.com with your verified Mailgun domain.
-    // Sign up at https://mailgun.com/signup (first 10,000 mails a month free).
+    // Mailgun API URL
+    // Replace `<`example.com`>` with your verified Mailgun domain.
     'URL' => 'https://api.mailgun.net/v3/example.com',
 
-    // Mailgun private API key — https://mailgun.com/cp (not the public key).
-    'Key' => 'key-123456-abcdefg-789012-abc-34567',
+    // Mailgun private API key.
+    // Get it from https://app.mailgun.com/settings/api_security.
+    'Key' => '<your-mailgun-api-key>',
 
     'Default' => [
         // Display name for the sender.
@@ -33,7 +34,7 @@ return [
 
     // Optional: Google reCAPTCHA v2 keys — https://www.google.com/recaptcha/admin
     'Recaptcha' => [
-        'SiteKey' => '0123456789abcdefghijklmnopqrstuvwxyz',
-        'SecretKey' => '0123456789abcdefghijklmnopqrstuvwxyz',
+        'SiteKey' => '<your-recaptcha-site-key>',
+        'SecretKey' => '<your-recaptcha-secret-key>',
     ],
 ];

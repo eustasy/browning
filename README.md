@@ -49,11 +49,13 @@ Open your copy and fill in your details — it's a PHP file that `return`s a con
 <?php
 
 return [
-    // Mailgun API URL — replace example.com with your verified Mailgun domain.
+    // Mailgun API URL
+    // Replace `<`example.com`>` with your verified Mailgun domain.
     'URL' => 'https://api.mailgun.net/v3/example.com',
 
-    // Mailgun private API key — https://mailgun.com/cp (not the public key).
-    'Key' => 'key-123456-abcdefg-789012-abc-34567',
+    // Mailgun private API key.
+    // Get it from https://app.mailgun.com/settings/api_security.
+    'Key' => '<your-mailgun-api-key>',
 
     'Default' => [
         'Regards' => 'Example Support',     // Sender display name
@@ -62,8 +64,8 @@ return [
 
     // Optional reCAPTCHA v2 keys (see section 3).
     'Recaptcha' => [
-        'SiteKey' => '...',
-        'SecretKey' => '...',
+        'SiteKey' => '<your-recaptcha-site-key>',
+        'SecretKey' => '<your-recaptcha-secret-key>',
     ],
 ];
 ```

@@ -13,8 +13,9 @@ namespace Eustasy\Browning;
 interface Transport
 {
     /**
+     * @param non-empty-string $url
      * @param array<string, string|int|float|bool|null> $fields Form fields to POST.
-     * @param string|null $basicAuth "user:password" for HTTP Basic auth, or null for none.
+     * @param non-empty-string|null $basicAuth "user:password" for HTTP Basic auth, or null for none.
      */
     public function post(string $url, array $fields, ?string $basicAuth = null): Response;
 }

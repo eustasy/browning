@@ -49,6 +49,7 @@ final class MockHttpServer
         $this->waitUntilReady();
     }
 
+    /** @return non-empty-string */
     public function url(string $path = ''): string
     {
         return 'http://' . $this->host . ':' . $this->port . $path;

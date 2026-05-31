@@ -14,7 +14,7 @@ final class Recaptcha
     /**
      * @param string $secret The reCAPTCHA secret key.
      * @param bool $debug When true, transport error messages carry technical detail.
-     * @param string $endpoint Override the siteverify URL (for testing).
+     * @param non-empty-string $endpoint Override the siteverify URL (for testing).
      */
     public function __construct(
         private readonly string $secret,
@@ -56,7 +56,9 @@ final class Recaptcha
         $errorCodes = [];
         if (isset($decoded['error-codes']) && is_array($decoded['error-codes'])) {
             foreach ($decoded['error-codes'] as $code) {
-                $errorCodes[] = (string) $code;
+                if (is_string($code)) {
+                    $errorCodes[] = $code;
+                }
             }
         }
 
