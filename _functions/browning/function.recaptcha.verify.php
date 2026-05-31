@@ -18,44 +18,44 @@
 function Recaptcha_Verify(string $RecaptchaSecret, ?string $Response, $UserIP = false, bool $Debug = false): array
 {
 
-	$Check = curl_init();
+    $Check = curl_init();
 
-	curl_setopt($Check, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-	curl_setopt($Check, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt_array($Check, array(
-		CURLOPT_POST => 1,
-		CURLOPT_POSTFIELDS => array(
-			'secret' => $RecaptchaSecret,
-			'response' => $Response,
-			'remoteip' => $UserIP
-		)
-	));
+    curl_setopt($Check, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt($Check, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt_array($Check, [
+        CURLOPT_POST => 1,
+        CURLOPT_POSTFIELDS => [
+            'secret' => $RecaptchaSecret,
+            'response' => $Response,
+            'remoteip' => $UserIP,
+        ],
+    ]);
 
-	$RawResponse = curl_exec($Check);
-	$CheckError = curl_errno($Check);
-	$CheckErrorMessage = curl_error($Check);
-	$Info = curl_getinfo($Check);
+    $RawResponse = curl_exec($Check);
+    $CheckError = curl_errno($Check);
+    $CheckErrorMessage = curl_error($Check);
+    $Info = curl_getinfo($Check);
 
-	$Decoded = is_string($RawResponse) ? json_decode($RawResponse, true) : null;
+    $Decoded = is_string($RawResponse) ? json_decode($RawResponse, true) : null;
 
-	if ($Debug) {
-		echo '$Info is ';
-		var_dump($Info);
-		echo PHP_EOL;
-		echo '$Response is ';
-		var_dump($Decoded);
-		echo PHP_EOL;
-	}
+    if ($Debug) {
+        echo '$Info is ';
+        var_dump($Info);
+        echo PHP_EOL;
+        echo '$Response is ';
+        var_dump($Decoded);
+        echo PHP_EOL;
+    }
 
-	if ($CheckError) {
-		return array('Success' => false, 'Error' => $CheckError . ' Error: ' . $CheckErrorMessage);
-	}
+    if ($CheckError) {
+        return ['Success' => false, 'Error' => $CheckError . ' Error: ' . $CheckErrorMessage];
+    }
 
-	if (!is_array($Decoded)) {
-		return array('Success' => false, 'Error' => 'Invalid response from reCAPTCHA server.');
-	}
+    if (! is_array($Decoded)) {
+        return ['Success' => false, 'Error' => 'Invalid response from reCAPTCHA server.'];
+    }
 
-	$Decoded['Success'] = !empty($Decoded['success']);
+    $Decoded['Success'] = ! empty($Decoded['success']);
 
-	return $Decoded;
+    return $Decoded;
 }

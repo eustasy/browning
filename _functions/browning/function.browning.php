@@ -46,85 +46,85 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 function Browning(?string $Dear, ?string $Subject, ?string $Message, $Regards = false, $ReplyTo = false, bool $Debug = false): array
 {
 
-	global $Browning;
+    global $Browning;
 
-	if (empty($Dear) || empty($Subject) || empty($Message)) {
-		$Missing = array();
+    if (empty($Dear) || empty($Subject) || empty($Message)) {
+        $Missing = [];
 
-		if (empty($Dear)) {
-			$Missing[] = 'recipient email address';
-		}
+        if (empty($Dear)) {
+            $Missing[] = 'recipient email address';
+        }
 
-		if (empty($Subject)) {
-			$Missing[] = 'subject';
-		}
+        if (empty($Subject)) {
+            $Missing[] = 'subject';
+        }
 
-		if (empty($Message)) {
-			$Missing[] = 'message body';
-		}
+        if (empty($Message)) {
+            $Missing[] = 'message body';
+        }
 
-		return array(
-			'Error' => 'Please provide the following required field' . (count($Missing) > 1 ? 's' : '') . ': ' . implode(', ', $Missing) . '.',
-			'Success' => false
-		);
-	}
+        return [
+            'Error' => 'Please provide the following required field' . (count($Missing) > 1 ? 's' : '') . ': ' . implode(', ', $Missing) . '.',
+            'Success' => false,
+        ];
+    }
 
-	$Browning['Dear'] = $Dear;
-	$Browning['Subject'] = $Subject;
-	$Browning['Message'] = $Message;
+    $Browning['Dear'] = $Dear;
+    $Browning['Subject'] = $Subject;
+    $Browning['Message'] = $Message;
 
-	if ($Regards) {
-		$Browning['Regards'] = $Regards;
-	} else {
-		$Browning['Regards'] = $Browning['Default']['Regards'];
-	}
+    if ($Regards) {
+        $Browning['Regards'] = $Regards;
+    } else {
+        $Browning['Regards'] = $Browning['Default']['Regards'];
+    }
 
-	if ($ReplyTo) {
-		$Browning['ReplyTo'] = $ReplyTo;
-	} else {
-		$Browning['ReplyTo'] = $Browning['Default']['ReplyTo'];
-	}
+    if ($ReplyTo) {
+        $Browning['ReplyTo'] = $ReplyTo;
+    } else {
+        $Browning['ReplyTo'] = $Browning['Default']['ReplyTo'];
+    }
 
-	$Browning['Curl'] = curl_init();
+    $Browning['Curl'] = curl_init();
 
-	curl_setopt($Browning['Curl'], CURLOPT_URL, $Browning['URL'] . '/messages');
-	curl_setopt($Browning['Curl'], CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($Browning['Curl'], CURLOPT_USERPWD, 'api:' . $Browning['Key']);
-	curl_setopt($Browning['Curl'], CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-	curl_setopt_array($Browning['Curl'], array(
-		CURLOPT_POST => 1,
-		CURLOPT_POSTFIELDS => array(
-			'from' => $Browning['Regards'] . ' <' . $Browning['ReplyTo'] . '>',
-			'to' => $Browning['Dear'],
-			'subject' => $Browning['Subject'],
-			'text' => $Browning['Message']
-		)
-	));
+    curl_setopt($Browning['Curl'], CURLOPT_URL, $Browning['URL'] . '/messages');
+    curl_setopt($Browning['Curl'], CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($Browning['Curl'], CURLOPT_USERPWD, 'api:' . $Browning['Key']);
+    curl_setopt($Browning['Curl'], CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt_array($Browning['Curl'], [
+        CURLOPT_POST => 1,
+        CURLOPT_POSTFIELDS => [
+            'from' => $Browning['Regards'] . ' <' . $Browning['ReplyTo'] . '>',
+            'to' => $Browning['Dear'],
+            'subject' => $Browning['Subject'],
+            'text' => $Browning['Message'],
+        ],
+    ]);
 
-	$Browning['Response'] = curl_exec($Browning['Curl']);
-	$Browning['Info'] = curl_getinfo($Browning['Curl']);
-	$CurlError = curl_errno($Browning['Curl']);
-	$CurlErrorMessage = curl_error($Browning['Curl']);
+    $Browning['Response'] = curl_exec($Browning['Curl']);
+    $Browning['Info'] = curl_getinfo($Browning['Curl']);
+    $CurlError = curl_errno($Browning['Curl']);
+    $CurlErrorMessage = curl_error($Browning['Curl']);
 
-	$ErrorMessage = false;
+    $ErrorMessage = false;
 
-	if ($CurlError) {
-		$ErrorMessage = $Debug
-			? $CurlError . ' Error: ' . $CurlErrorMessage
-			: 'Unable to send email at this time. Please try again later.';
-	} else if (!$Browning['Response']) {
-		$ErrorMessage = $Debug
-			? 'No response received from mail server.'
-			: 'Unable to send email at this time. Please try again later.';
-	} else if ($Browning['Response'] == 'Forbidden') {
-		$ErrorMessage = $Debug
-			? 'Forbidden: Check your Mailgun configuration and API key.'
-			: 'This website is unable to send email. <!-- Check your configuration and keys. -->';
-	}
+    if ($CurlError) {
+        $ErrorMessage = $Debug
+            ? $CurlError . ' Error: ' . $CurlErrorMessage
+            : 'Unable to send email at this time. Please try again later.';
+    } elseif (! $Browning['Response']) {
+        $ErrorMessage = $Debug
+            ? 'No response received from mail server.'
+            : 'Unable to send email at this time. Please try again later.';
+    } elseif ($Browning['Response'] == 'Forbidden') {
+        $ErrorMessage = $Debug
+            ? 'Forbidden: Check your Mailgun configuration and API key.'
+            : 'This website is unable to send email. <!-- Check your configuration and keys. -->';
+    }
 
-	if ($ErrorMessage) {
-		return array('Error' => $ErrorMessage, 'Success' => false);
-	}
+    if ($ErrorMessage) {
+        return ['Error' => $ErrorMessage, 'Success' => false];
+    }
 
-	return array('Error' => false, 'Success' => true);
+    return ['Error' => false, 'Success' => true];
 }
