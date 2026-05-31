@@ -1,4 +1,4 @@
-# Browning: A Mailgun Script (v0.30)
+# Browning: A Mailgun Script (v1.31)
 
 **Browning is a tiny PHP library to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.**
 
