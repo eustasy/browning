@@ -19,7 +19,7 @@ final class BrowningValidationTest extends TestCase
         $this->assertFalse($result['Success']);
         $this->assertSame(
             'Please provide the following required field: recipient email address.',
-            $result['Error']
+            $result['Error'],
         );
     }
 
@@ -30,7 +30,7 @@ final class BrowningValidationTest extends TestCase
         $this->assertFalse($result['Success']);
         $this->assertSame(
             'Please provide the following required fields: recipient email address, subject.',
-            $result['Error']
+            $result['Error'],
         );
     }
 
@@ -41,7 +41,7 @@ final class BrowningValidationTest extends TestCase
         $this->assertFalse($result['Success']);
         $this->assertSame(
             'Please provide the following required fields: recipient email address, subject, message body.',
-            $result['Error']
+            $result['Error'],
         );
     }
 

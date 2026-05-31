@@ -36,7 +36,7 @@ final class MockHttpServer
             escapeshellarg(PHP_BINARY),
             $this->host,
             $this->port,
-            escapeshellarg(__DIR__ . '/router.php')
+            escapeshellarg(__DIR__ . '/router.php'),
         );
 
         $descriptors = [

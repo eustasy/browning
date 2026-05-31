@@ -21,7 +21,7 @@ if ($log !== false && $log !== '') {
     file_put_contents(
         $log,
         json_encode(['path' => $path, 'post' => $_POST]) . "\n",
-        FILE_APPEND | LOCK_EX
+        FILE_APPEND | LOCK_EX,
     );
 }
 
