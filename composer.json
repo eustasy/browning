@@ -1,5 +1,5 @@
 {
-	"name": "eustasy/browning-a-mailgun-script",
+	"name": "eustasy/browning",
 	"description": "Browning: A Lightweight Mailgun Script using Curl.",
 	"homepage": "https://github.com/eustasy/browning",
 	"type": "library",

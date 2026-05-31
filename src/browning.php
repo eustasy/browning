@@ -3,7 +3,7 @@
 /*
 
 Browning: A Mailgun Script (v0.30)
-https://github.com/eustasy/browning-a-mailgun-script
+https://github.com/eustasy/browning
 ====================================================
 
 Browning is a tiny PHP function to send emails with Mailgun,

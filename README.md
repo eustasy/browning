@@ -13,7 +13,7 @@
 ## Installation
 
 ```sh
-composer require eustasy/browning-a-mailgun-script
+composer require eustasy/browning
 ```
 
 Then include the Composer autoloader in your project:

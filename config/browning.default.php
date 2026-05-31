@@ -1,7 +1,7 @@
 <?php
 
 ////	Browning: A Mailgun Script (v0.30)
-// https://github.com/eustasy/browning-a-mailgun-script
+// https://github.com/eustasy/browning
 
 ////	Mailgun
 // Sign up at https://mailgun.com/signup
