@@ -23,10 +23,22 @@
 		"php": ">=7.4.0",
 		"lib-curl": "*"
 	},
+	"require-dev": {
+		"phpunit/phpunit": "^11 || ^12"
+	},
 	"autoload": {
 		"files": [
 			"_functions/browning/function.browning.php",
 			"_functions/browning/function.recaptcha.verify.php"
 		]
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Eustasy\\Browning\\Tests\\": "tests/"
+		}
+	},
+	"scripts": {
+		"test": "phpunit",
+		"test-coverage": "phpunit --coverage-clover coverage/clover.xml"
 	}
 }

@@ -12,15 +12,16 @@
  * @param string|null  $Response        The g-recaptcha-response token from the form.
  * @param string|false $UserIP          Optional end-user IP address.
  * @param bool         $Debug           When true, dump the cURL info and decoded response.
+ * @param string       $Endpoint        reCAPTCHA siteverify endpoint; override only for testing.
  *
  * @return array<string, mixed> The decoded API response with an added 'Success' boolean, or an error array.
  */
-function Recaptcha_Verify(string $RecaptchaSecret, ?string $Response, $UserIP = false, bool $Debug = false): array
+function Recaptcha_Verify(string $RecaptchaSecret, ?string $Response, $UserIP = false, bool $Debug = false, string $Endpoint = 'https://www.google.com/recaptcha/api/siteverify'): array
 {
 
     $Check = curl_init();
 
-    curl_setopt($Check, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt($Check, CURLOPT_URL, $Endpoint);
     curl_setopt($Check, CURLOPT_RETURNTRANSFER, true);
     curl_setopt_array($Check, [
         CURLOPT_POST => 1,
