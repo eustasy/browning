@@ -1,6 +1,6 @@
 # Browning: A Mailgun Script (v0.30)
 
-**Browning is a tiny PHP function to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.**
+**Browning is a tiny PHP library to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.**
 
 [![Normal (PHP)](https://github.com/eustasy/browning/actions/workflows/php.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/php.yml)
 [![Normal (Markdown)](https://github.com/eustasy/browning/actions/workflows/md.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/md.yml)
@@ -10,98 +10,128 @@
 [![Maintainability](https://qlty.sh/gh/eustasy/projects/browning/maintainability.svg)](https://qlty.sh/gh/eustasy/projects/browning)
 [![Code Coverage](https://qlty.sh/gh/eustasy/projects/browning/coverage.svg)](https://qlty.sh/gh/eustasy/projects/browning)
 
+Requires PHP 8.1+ and the cURL extension.
+
 ## Installation
 
 ```sh
 composer require eustasy/browning
 ```
 
-Then include the Composer autoloader in your project:
+Then include the Composer autoloader:
 
 ```php
 require 'vendor/autoload.php';
 ```
 
-This makes both `Browning()` and `Recaptcha_Verify()` available without any manual `require` calls.
+This makes the `Eustasy\Browning\Mailer` and `Eustasy\Browning\Recaptcha` classes available.
 
 ## 1. Setup with Mailgun
 
-Make sure you have the following packages installed. CURL is required.
+The cURL extension is required. On Debian/Ubuntu:
 
-```text
-libmagic-dev php-dev libcurl3 php-curl
+```sh
+sudo apt-get install php-curl
 ```
 
-Copy the bundled config template to a location outside `vendor/`, for example `config/browning.php`:
+[Sign up for Mailgun](https://signup.mailgun.com/new/signup) — the free tier covers 100 emails per day.
+See [pricing](https://www.mailgun.com/pricing/) for the paid tiers.
+
+Copy the bundled config template out of `vendor/`, for example to `config/browning.php`:
 
 ```sh
 cp vendor/eustasy/browning/config/browning.default.php config/browning.php
 ```
 
-Then open your copy and fill in your details:
+Open your copy and fill in your details — it's a PHP file that `return`s a config array (loaded with `require` in step 2):
 
 ```php
-// Mailgun API URL — replace example.com with your verified Mailgun domain
-$Browning['URL'] = 'https://api.mailgun.net/v3/example.com';
+<?php
 
-// Mailgun API Key — found at https://mailgun.com/cp (use the private API key, not the public key)
-$Browning['Key'] = 'key-123456-abcdefg-789012-abc-34567';
+return [
+    // Mailgun API URL — replace example.com with your verified Mailgun domain.
+    'URL' => 'https://api.mailgun.net/v3/example.com',
 
-// Display name for the sender
-$Browning['Default']['Regards'] = 'Example Support';
+    // Mailgun private API key — https://mailgun.com/cp (not the public key).
+    'Key' => 'key-123456-abcdefg-789012-abc-34567',
 
-// Reply-to address — should match the domain in your API URL
-$Browning['Default']['ReplyTo'] = 'support@example.com';
+    'Default' => [
+        'Regards' => 'Example Support',     // Sender display name
+        'ReplyTo' => 'support@example.com', // From / reply-to address
+    ],
+
+    // Optional reCAPTCHA v2 keys (see section 3).
+    'Recaptcha' => [
+        'SiteKey' => '...',
+        'SecretKey' => '...',
+    ],
+];
 ```
 
 **Add `config/browning.php` to your `.gitignore` to avoid committing credentials.**
 
-## 2. Code
+## 2. Sending email
 
-Load the settings and function, then call `Browning()`:
+Build a `Mailer` from your config and call `send()`:
 
 ```php
 require 'vendor/autoload.php';
-require 'config/browning.php';
 
-$Mail = Browning(
+use Eustasy\Browning\Mailer;
+
+$config = require 'config/browning.php';
+$mailer = Mailer::fromArray($config);
+
+$result = $mailer->send(
     'recipient@example.com', // Required: recipient address
     'Message Subject',       // Required: subject line
     'Text or HTML body',     // Required: message body
-    'Sender Name',           // Optional: overrides $Browning['Default']['Regards']
-    'reply-to@example.com',  // Optional: overrides $Browning['Default']['ReplyTo']
-    false                    // Optional: set true to enable debug output
+    'Sender Name',           // Optional: overrides Default.Regards
+    'reply-to@example.com',  // Optional: overrides Default.ReplyTo
 );
 
-if ($Mail['Success']) {
+if ($result->success) {
     echo 'Email sent successfully.';
 } else {
-    echo 'Failed to send email: ' . $Mail['Error'];
+    echo 'Failed to send email: ' . $result->error;
 }
 ```
 
-The function always returns an array with two keys:
+`send()` returns a `Eustasy\Browning\Result`:
 
-| Key | Type | Description |
+| Property | Type | Description |
 | --- | --- | --- |
-| `Success` | `bool` | `true` if the email was accepted by Mailgun. |
-| `Error` | `string\|false` | Error message, or `false` on success. With `$Debug = true`, error messages include technical detail. |
+| `success` | `bool` | `true` if the email was accepted by Mailgun. |
+| `error` | `string\|null` | Error message, or `null` on success. |
+
+By default `error` is a friendly, user-safe message. Pass `debug: true` to get technical detail instead:
+
+```php
+$mailer = Mailer::fromArray($config, debug: true);
+```
+
+Prefer explicit wiring? Construct it directly. The constructor also accepts a custom `Transport` as its fifth argument —
+that's how the tests avoid the network:
+
+```php
+$mailer = new Mailer(
+    apiUrl: 'https://api.mailgun.net/v3/example.com',
+    apiKey: $secret,
+    fromName: 'Example Support',
+    fromAddress: 'support@example.com',
+);
+```
 
 ## 3. Setup with reCAPTCHA
 
-To protect your contact form with Google reCAPTCHA v2, add your site and secret keys to your config file (e.g. `config/browning.php`):
+To protect a form with Google reCAPTCHA v2, add your keys under `Recaptcha` in the config —
+`SiteKey` for the form, `SecretKey` for verification.
 
-```php
-$Recaptcha['Enable'] = true;
-$Recaptcha['SiteKey'] = '0123456789abcdefghijklmnopqrstuvwxyz';
-$Recaptcha['SecretKey'] = '0123456789abcdefghijklmnopqrstuvwxyz';
-```
+Keys come from the [Google reCAPTCHA admin console](https://www.google.com/recaptcha/admin).
 
-Keys can be obtained from the [Google reCAPTCHA admin console](https://www.google.com/recaptcha/admin).
+## 4. CAPTCHA form
 
-## 4. CAPTCHA Form
-
-Add the reCAPTCHA widget to your HTML form. Include the reCAPTCHA script and add the `g-recaptcha` div with your site key:
+Add the widget to your HTML form, using your site key:
 
 ```html
 <script src="https://www.google.com/recaptcha/api.js"></script>
@@ -115,24 +145,31 @@ Add the reCAPTCHA widget to your HTML form. Include the reCAPTCHA script and add
 </form>
 ```
 
-## 5. CAPTCHA Validation
+## 5. CAPTCHA validation
 
-Before sending the email, verify the reCAPTCHA response server-side:
+Verify the response server-side before sending:
 
 ```php
-$Recaptcha['Validity'] = Recaptcha_Verify(
-    $Recaptcha['SecretKey'],
-    $_POST['g-recaptcha-response'],
-    $_SERVER['REMOTE_ADDR'] // Optional: user's IP address
+use Eustasy\Browning\Mailer;
+use Eustasy\Browning\Recaptcha;
+
+$config = require 'config/browning.php';
+
+$check = Recaptcha::fromArray($config)->verify(
+    $_POST['g-recaptcha-response'] ?? null,
+    $_SERVER['REMOTE_ADDR'] ?? null, // Optional: user's IP address
 );
 
-if (!$Recaptcha['Validity']['Success']) {
+if (! $check->success) {
     echo 'reCAPTCHA failed. Please go back and try again.';
-    if (!empty($Recaptcha['Validity']['Error'])) {
-        echo ' ' . $Recaptcha['Validity']['Error'];
-    }
 } else {
-    // reCAPTCHA passed — send the email
-    $Mail = Browning($_POST['dear'], $_POST['subject'], $_POST['message']);
+    // reCAPTCHA passed — send the email.
+    $result = Mailer::fromArray($config)->send(
+        $_POST['dear'] ?? '',
+        $_POST['subject'] ?? '',
+        $_POST['message'] ?? '',
+    );
 }
 ```
+
+`verify()` returns a `Eustasy\Browning\RecaptchaResult` with `success` (`bool`), `errorCodes` (`string[]`), and `error` (`string|null`).

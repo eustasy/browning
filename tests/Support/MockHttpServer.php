@@ -2,23 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Eustasy\Browning\Tests\Fixtures;
+namespace Eustasy\Browning\Tests\Support;
 
 use RuntimeException;
 
 /**
- * Boots a throwaway PHP built-in web server backed by {@see router.php}.
- *
- * Keeping cURL real (rather than stubbing the curl_* functions) means the
- * tests exercise the actual request the functions build, end to end.
+ * Boots a throwaway PHP built-in web server running {@see echo-server.php}.
+ * Used only to integration-test CurlTransport against real cURL + HTTP.
  */
 final class MockHttpServer
 {
     public string $host = '127.0.0.1';
 
     public int $port;
-
-    public string $logFile;
 
     /** @var resource|null */
     private $process;
@@ -29,14 +25,13 @@ final class MockHttpServer
     public function __construct()
     {
         $this->port = $this->findFreePort();
-        $this->logFile = (string) tempnam(sys_get_temp_dir(), 'browning-mock-');
 
         $command = sprintf(
             '%s -S %s:%d %s',
             escapeshellarg(PHP_BINARY),
             $this->host,
             $this->port,
-            escapeshellarg(__DIR__ . '/router.php'),
+            escapeshellarg(__DIR__ . '/echo-server.php'),
         );
 
         $descriptors = [
@@ -45,9 +40,7 @@ final class MockHttpServer
             2 => ['pipe', 'w'],
         ];
 
-        $env = array_replace(getenv() ?: [], ['MOCK_LOG' => $this->logFile]);
-
-        $process = proc_open($command, $descriptors, $this->pipes, null, $env);
+        $process = proc_open($command, $descriptors, $this->pipes);
         if (! is_resource($process)) {
             throw new RuntimeException('Unable to start the mock HTTP server.');
         }
@@ -56,49 +49,9 @@ final class MockHttpServer
         $this->waitUntilReady();
     }
 
-    /** Absolute URL for a path on the mock server, e.g. url('/messages'). */
     public function url(string $path = ''): string
     {
         return 'http://' . $this->host . ':' . $this->port . $path;
-    }
-
-    /**
-     * Every request the server has received, oldest first.
-     *
-     * @return list<array{path: string, post: array<array-key, mixed>}>
-     */
-    public function requests(): array
-    {
-        $raw = is_file($this->logFile) ? (string) file_get_contents($this->logFile) : '';
-
-        $requests = [];
-        foreach (array_filter(explode("\n", $raw)) as $line) {
-            $decoded = json_decode($line, true);
-            if (! is_array($decoded)) {
-                continue;
-            }
-
-            $path = $decoded['path'] ?? '';
-            $post = $decoded['post'] ?? [];
-            $requests[] = [
-                'path' => is_string($path) ? $path : '',
-                'post' => is_array($post) ? $post : [],
-            ];
-        }
-
-        return $requests;
-    }
-
-    /**
-     * The most recent request, or null if none has arrived.
-     *
-     * @return array{path: string, post: array<array-key, mixed>}|null
-     */
-    public function lastRequest(): ?array
-    {
-        $requests = $this->requests();
-
-        return $requests === [] ? null : end($requests);
     }
 
     public function stop(): void
@@ -114,10 +67,6 @@ final class MockHttpServer
             proc_terminate($this->process);
             proc_close($this->process);
             $this->process = null;
-        }
-
-        if (is_file($this->logFile)) {
-            @unlink($this->logFile);
         }
     }
 
