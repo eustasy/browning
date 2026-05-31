@@ -11,8 +11,8 @@
   // MD007 — unordered list indentation: 2 spaces (matches .editorconfig for Markdown)
   "MD007": { "indent": 2 },
 
-  // MD013 — line length: match project-wide max_line_length
-  "MD013": { "line_length": 140 },
+  // MD013 — line length: allow paragraphs without formatting to multi-line
+  "MD013": { "line_length": 9999 },
 
   // MD029 — ordered list prefix: ordered (1. 2. 3.)
   "MD029": { "style": "ordered" },
