@@ -32,7 +32,13 @@ Make sure you have the following packages installed. CURL is required.
 libmagic-dev php-dev libcurl3 php-curl
 ```
 
-Create a config file anywhere outside your `vendor/` directory, for example `config/browning.php`, and fill in your details:
+Copy the bundled config template to a location outside `vendor/`, for example `config/browning.php`:
+
+```sh
+cp vendor/eustasy/browning/config/browning.default.php config/browning.php
+```
+
+Then open your copy and fill in your details:
 
 ```php
 // Mailgun API URL — replace example.com with your verified Mailgun domain
@@ -48,7 +54,7 @@ $Browning['Default']['Regards'] = 'Example Support';
 $Browning['Default']['ReplyTo'] = 'support@example.com';
 ```
 
-Add `config/browning.php` to your `.gitignore` to avoid committing credentials.
+**Add `config/browning.php` to your `.gitignore` to avoid committing credentials.**
 
 ## 2. Code
 
