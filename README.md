@@ -1,9 +1,14 @@
 # Browning: A Mailgun Script (v0.30)
 
-##### Browning is a tiny PHP function to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.
+**Browning is a tiny PHP function to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.**
 
-[![Normal](https://github.com/eustasy/browning/actions/workflows/normal.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/normal.yml)
-[![Code Climate](https://codeclimate.com/github/eustasy/browning/badges/gpa.svg)](https://codeclimate.com/github/eustasy/browning)
+[![Normal (PHP)](https://github.com/eustasy/browning/actions/workflows/php.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/php.yml)
+[![Normal (Markdown)](https://github.com/eustasy/browning/actions/workflows/md.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/md.yml)
+[![Normal (Security)](https://github.com/eustasy/browning/actions/workflows/security.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/security.yml)
+[![Test (PHP)](https://github.com/eustasy/browning/actions/workflows/test-php.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/test-php.yml)
+[![CodeQL](https://github.com/eustasy/browning/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/eustasy/browning/actions/workflows/github-code-scanning/codeql)
+[![Maintainability](https://qlty.sh/gh/eustasy/projects/browning/maintainability.svg)](https://qlty.sh/gh/eustasy/projects/browning)
+[![Code Coverage](https://qlty.sh/gh/eustasy/projects/browning/coverage.svg)](https://qlty.sh/gh/eustasy/projects/browning)
 
 ## Installation
 
