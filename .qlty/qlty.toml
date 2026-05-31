@@ -1,0 +1,109 @@
+config_version = "0"
+
+# Exclude patterns apply to all plugins (linting and formatting).
+# Sources: old .eslintignore, .stylelintignore, and .codeclimate.yml defaults.
+exclude_patterns = [
+  # Minified / bundled / custom overrides
+  "**/*.min.*",
+  "**/*.pack.*",
+  "**/*.custom.*",
+
+  # Legacy libs directory
+  "**/_libs/**",
+
+  # Dependency directories
+  "**/vendor/**",
+  "**/node_modules/**",
+
+  # Build output
+  "**/dist/**",
+  "**/build/**",
+  "**/out/**",
+
+  # Coverage output
+  "**/coverage/**",
+
+  # Python caches
+  "**/__pycache__/**",
+  "**/.pytest_cache/**",
+  "**/*.pyc",
+]
+
+# ── Smells ──────────────────────────────────────────────────────────────────
+# Matches Phoenix thresholds.
+
+[smells]
+[smells.nested_control_flow]
+threshold = 4
+
+[smells.function_parameters]
+threshold = 10
+
+# ── Source ───────────────────────────────────────────────────────────────────
+
+[[source]]
+name = "default"
+default = true
+
+# ── Linters ──────────────────────────────────────────────────────────────────
+
+[[plugin]]
+name = "oxc"
+
+[[plugin]]
+name = "stylelint"
+
+[[plugin]]
+name = "markdownlint"
+
+[[plugin]]
+name = "ruff"
+
+[[plugin]]
+name = "phpstan"
+
+[[plugin]]
+name = "sqlfluff"
+
+[[plugin]]
+name = "yamllint"
+
+[[plugin]]
+name = "shellcheck"
+
+[[plugin]]
+name = "actionlint"
+
+[[plugin]]
+name = "zizmor"
+
+[[plugin]]
+name = "knip"
+
+[[plugin]]
+name = "dotenv-linter"
+
+# ── Formatters ───────────────────────────────────────────────────────────────
+
+[[plugin]]
+name = "prettier"
+
+[[plugin]]
+name = "php-cs-fixer"
+
+[[plugin]]
+name = "shfmt"
+
+# ── Security ─────────────────────────────────────────────────────────────────
+
+[[plugin]]
+name = "gitleaks"
+
+[[plugin]]
+name = "bandit"
+
+[[plugin]]
+name = "trivy"
+
+[[plugin]]
+name = "osv-scanner"
