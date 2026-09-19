@@ -1,32 +1,32 @@
 # eustasy/.Normal 4.0beta16
-name: "Normal: Markdown"
+name: "Normal: Actions"
 on:
   workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - "**.md"
-      - ".github/workflows/md.yml"
-      - ".qlty/configs/.markdownlint.json"
+      - ".github/workflows/**"
+      - ".github/actionlint.yaml"
+      - ".github/zizmor.yml"
       - ".qlty/qlty.toml"
   pull_request:
     branches: [main]
     paths:
-      - "**.md"
-      - ".github/workflows/md.yml"
-      - ".qlty/configs/.markdownlint.json"
+      - ".github/workflows/**"
+      - ".github/actionlint.yaml"
+      - ".github/zizmor.yml"
       - ".qlty/qlty.toml"
 
 permissions:
   contents: read
 
 jobs:
-  md:
-    name: Lint + format
+  actions:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
-      - uses: eustasy/.normal/md@v4
+      - uses: eustasy/.normal/actions@v4
