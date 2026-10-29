@@ -1,4 +1,4 @@
-# Browning: A Mailgun Script (v1.31)
+# Browning: A Mailgun Script (1.32)
 
 [![Normal (PHP)](https://github.com/eustasy/browning/actions/workflows/php.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/php.yml)
 [![Normal (Markdown)](https://github.com/eustasy/browning/actions/workflows/md.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/md.yml)
@@ -8,7 +8,7 @@
 [![Maintainability](https://qlty.sh/gh/eustasy/projects/browning/maintainability.svg)](https://qlty.sh/gh/eustasy/projects/browning)
 [![Code Coverage](https://qlty.sh/gh/eustasy/projects/browning/coverage.svg)](https://qlty.sh/gh/eustasy/projects/browning)
 
-**Browning is a tiny PHP library to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.** Requires PHP 8.1+ and the cURL extension.
+**Browning is a tiny PHP library to send emails with Mailgun, that uses CURL instead of Mailgun's (slightly porky) library.** Requires PHP 8.2+ and the cURL extension.
 
 ## Installation
 
