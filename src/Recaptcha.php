@@ -48,6 +48,12 @@ final class Recaptcha
                 : 'Unable to verify reCAPTCHA at this time.');
         }
 
+        if ($raw->statusCode >= 400) {
+            return new RecaptchaResult(false, [], $this->debug
+                ? 'HTTP ' . $raw->statusCode . ': ' . ($raw->body ?? '')
+                : 'Unable to verify reCAPTCHA at this time.');
+        }
+
         $decoded = $raw->body !== null ? json_decode($raw->body, true) : null;
         if (! is_array($decoded)) {
             return new RecaptchaResult(false, [], 'Invalid response from reCAPTCHA server.');

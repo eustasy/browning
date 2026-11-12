@@ -18,6 +18,9 @@ final class CurlTransport implements Transport
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_POST, true);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $this->normalise($fields));
+        // Never let a stalled API hold the request open indefinitely.
+        curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($handle, CURLOPT_TIMEOUT, 30);
 
         if ($basicAuth !== null) {
             curl_setopt($handle, CURLOPT_USERPWD, $basicAuth);
@@ -27,13 +30,13 @@ final class CurlTransport implements Transport
         $body = curl_exec($handle);
         $errorCode = curl_errno($handle);
         $errorMessage = curl_error($handle);
-
-        curl_close($handle);
+        $statusCode = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
 
         return new Response(
             is_string($body) ? $body : null,
             $errorCode,
             $errorMessage,
+            $statusCode,
         );
     }
 

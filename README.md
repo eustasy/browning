@@ -101,7 +101,7 @@ if ($result->success) {
 
 | Property | Type | Description |
 | --- | --- | --- |
-| `success` | `bool` | `true` if the email was accepted by Mailgun. |
+| `success` | `bool` | `true` if Mailgun answered 2xx and accepted the message. Any transport failure, 4xx or 5xx is a failure. |
 | `error` | `string\|null` | Error message, or `null` on success. |
 
 By default `error` is a friendly, user-safe message. Pass `debug: true` to get technical detail instead:

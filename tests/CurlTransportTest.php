@@ -63,6 +63,18 @@ final class CurlTransportTest extends TestCase
         $this->assertArrayNotHasKey('dropped', $post);
     }
 
+    public function testHttpStatusIsCaptured(): void
+    {
+        $ok = (new CurlTransport())->post($this->server->url('/x'), ['a' => 'b']);
+        $this->assertSame(200, $ok->statusCode);
+        $this->assertFalse($ok->failed());
+
+        $denied = (new CurlTransport())->post($this->server->url('/status/401'), ['a' => 'b']);
+        $this->assertSame(401, $denied->statusCode);
+        $this->assertSame(0, $denied->errorCode);
+        $this->assertTrue($denied->failed());
+    }
+
     public function testTransportErrorIsReported(): void
     {
         // Port 1 refuses the connection.
