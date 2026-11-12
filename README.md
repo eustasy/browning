@@ -1,4 +1,4 @@
-# Browning: A Mailgun Script (1.32)
+# Browning: A Mailgun Script (1.33)
 
 [![Normal (PHP)](https://github.com/eustasy/browning/actions/workflows/php.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/php.yml)
 [![Normal (Markdown)](https://github.com/eustasy/browning/actions/workflows/md.yml/badge.svg)](https://github.com/eustasy/browning/actions/workflows/md.yml)
