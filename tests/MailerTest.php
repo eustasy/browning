@@ -80,6 +80,43 @@ final class MailerTest extends TestCase
         $this->assertSame('Forbidden: Check your Mailgun configuration and API key.', $result->error);
     }
 
+    public function testUnauthorisedStatusReturnsFriendlyError(): void
+    {
+        $result = $this->mailer(new FakeTransport(new Response('{"message":"Forbidden"}', 0, '', 401)))->send('to@example.com', 'Hi', 'Body');
+
+        $this->assertFalse($result->success);
+        $this->assertSame('This website is unable to send email.', $result->error);
+    }
+
+    public function testUnauthorisedStatusInDebugModeReturnsTechnicalDetail(): void
+    {
+        $result = $this->mailer(new FakeTransport(new Response('{"message":"Forbidden"}', 0, '', 401)), true)->send('to@example.com', 'Hi', 'Body');
+
+        $this->assertSame('HTTP 401: Check your Mailgun configuration and API key.', $result->error);
+    }
+
+    public function testBadRequestStatusReturnsFriendlyError(): void
+    {
+        $result = $this->mailer(new FakeTransport(new Response('{"message":"to parameter is not a valid address"}', 0, '', 400)))->send('to@example.com', 'Hi', 'Body');
+
+        $this->assertFalse($result->success);
+        $this->assertSame('Unable to send email at this time. Please try again later.', $result->error);
+    }
+
+    public function testBadRequestStatusInDebugModeReturnsTechnicalDetail(): void
+    {
+        $result = $this->mailer(new FakeTransport(new Response('{"message":"to parameter is not a valid address"}', 0, '', 400)), true)->send('to@example.com', 'Hi', 'Body');
+
+        $this->assertSame('HTTP 400: {"message":"to parameter is not a valid address"}', $result->error);
+    }
+
+    public function testServerErrorStatusIsNotSuccess(): void
+    {
+        $result = $this->mailer(new FakeTransport(new Response('<html>502</html>', 0, '', 502)))->send('to@example.com', 'Hi', 'Body');
+
+        $this->assertFalse($result->success);
+    }
+
     public function testEmptyResponseReturnsFriendlyError(): void
     {
         $result = $this->mailer(new FakeTransport(new Response('')))->send('to@example.com', 'Hi', 'Body');

@@ -40,6 +40,21 @@ final class RecaptchaTest extends TestCase
         $this->assertSame('Invalid response from reCAPTCHA server.', $result->error);
     }
 
+    public function testHttpErrorStatusReturnsFriendlyMessage(): void
+    {
+        $result = (new Recaptcha('secret', new FakeTransport(new Response('<html>503</html>', 0, '', 503))))->verify('token');
+
+        $this->assertFalse($result->success);
+        $this->assertSame('Unable to verify reCAPTCHA at this time.', $result->error);
+    }
+
+    public function testHttpErrorStatusInDebugModeReturnsTechnicalDetail(): void
+    {
+        $result = (new Recaptcha('secret', new FakeTransport(new Response('<html>503</html>', 0, '', 503)), true))->verify('token');
+
+        $this->assertSame('HTTP 503: <html>503</html>', $result->error);
+    }
+
     public function testTransportErrorReturnsFriendlyMessage(): void
     {
         $result = (new Recaptcha('secret', new FakeTransport(new Response(null, 7, 'fail'))))->verify('token');

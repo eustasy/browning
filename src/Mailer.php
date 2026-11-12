@@ -79,17 +79,26 @@ final class Mailer
             ));
         }
 
+        // Mailgun answers a rejected key with 401 and bad parameters with 400,
+        // both with a body, so the status has to be checked, not just the body.
+        if ($response->statusCode === 401 || $response->statusCode === 403 || $response->body === 'Forbidden') {
+            return new Result(false, $this->explain(
+                'This website is unable to send email.',
+                ($response->statusCode >= 400 ? 'HTTP ' . $response->statusCode : 'Forbidden') . ': Check your Mailgun configuration and API key.',
+            ));
+        }
+
+        if ($response->statusCode >= 400) {
+            return new Result(false, $this->explain(
+                'Unable to send email at this time. Please try again later.',
+                'HTTP ' . $response->statusCode . ': ' . ($response->body ?? ''),
+            ));
+        }
+
         if ($response->body === null || $response->body === '') {
             return new Result(false, $this->explain(
                 'Unable to send email at this time. Please try again later.',
                 'No response received from mail server.',
-            ));
-        }
-
-        if ($response->body === 'Forbidden') {
-            return new Result(false, $this->explain(
-                'This website is unable to send email.',
-                'Forbidden: Check your Mailgun configuration and API key.',
             ));
         }
 
